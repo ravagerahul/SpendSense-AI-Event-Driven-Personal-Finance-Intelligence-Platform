@@ -22,3 +22,47 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Gradle / build output
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+out/
+
+# Secrets / local config
+# .env holds the Gemini key, the ingestion key and the database password. The pattern is wide
+# on purpose - .env.prod and prod.env are the same mistake - and .env.example is the single
+# exception, committed with every key and no values.
+.env
+.env.*
+*.env
+!.env.example
+*.local
+
+# Certificates and keystores. Nothing here generates one today; the rule exists so that the
+# first one created on this machine is not the one that gets pushed.
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+
+# Structured JSON logs (logback-spring.xml, overridable with SPENDSENSE_LOG_DIR)
+logs/
+
+# Frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.tsbuildinfo
+
+# OS and editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+*.swp

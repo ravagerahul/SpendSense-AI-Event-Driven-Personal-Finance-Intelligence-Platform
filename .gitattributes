@@ -1,0 +1,21 @@
+# Normalise to LF in the repository. This is not cosmetic: the Dockerfiles copy gradlew
+# straight from the working tree into a Linux image, and a gradlew checked out with CRLF
+# fails there with "bad interpreter: /bin/sh^M" - a clone-on-Windows-only breakage that
+# does not reproduce for whoever committed it.
+* text=auto eol=lf
+
+# Must stay LF wherever they are checked out: these run inside containers or on Linux.
+gradlew          text eol=lf
+*.sh             text eol=lf
+Dockerfile       text eol=lf
+Caddyfile        text eol=lf
+
+# Must stay CRLF: cmd.exe does not reliably handle LF-only batch files.
+*.bat            text eol=crlf
+*.cmd            text eol=crlf
+
+# Binary - never touched, never diffed as text.
+*.jar            binary
+*.png            binary
+*.jpg            binary
+*.ico            binary

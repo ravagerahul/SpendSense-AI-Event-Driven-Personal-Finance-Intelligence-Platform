@@ -1,0 +1,784 @@
+{
+    "runStarted":  "2026-10-23T07:10:03.9633157+05:30",
+    "model":  null,
+    "only":  "categorization,query",
+    "endpoints":  {
+                      "ingest":  "http://localhost:8080/api/sms-ingest",
+                      "categorize":  "http://localhost:8082/api/categorize",
+                      "query":  "http://localhost:8085/api/query"
+                  },
+    "categorization":  {
+                           "cases":  31,
+                           "scored":  31,
+                           "errors":  0,
+                           "accuracy":  {
+                                            "correct":  27,
+                                            "total":  31,
+                                            "pct":  87.1
+                                        },
+                           "confusionMatrix":  {
+                                                   "Bills \u0026 Utilities":  {
+                                                                                  "Bills \u0026 Utilities":  2
+                                                                              },
+                                                   "Entertainment":  {
+                                                                         "Entertainment":  1
+                                                                     },
+                                                   "Food \u0026 Dining":  {
+                                                                              "Food \u0026 Dining":  3
+                                                                          },
+                                                   "Groceries":  {
+                                                                     "Groceries":  2
+                                                                 },
+                                                   "Health":  {
+                                                                  "Health":  2
+                                                              },
+                                                   "Income":  {
+                                                                  "Income":  2
+                                                              },
+                                                   "Needs Manual Categorization":  {
+                                                                                       "Needs Manual Categorization":  3
+                                                                                   },
+                                                   "Other":  {
+                                                                 "Needs Manual Categorization":  1
+                                                             },
+                                                   "Shopping":  {
+                                                                    "Shopping":  4
+                                                                },
+                                                   "Subscriptions":  {
+                                                                         "Subscriptions":  3
+                                                                     },
+                                                   "Transfers":  {
+                                                                     "Needs Manual Categorization":  2,
+                                                                     "Transfers":  1
+                                                                 },
+                                                   "Transport":  {
+                                                                     "Transport":  2,
+                                                                     "Travel":  1
+                                                                 },
+                                                   "Travel":  {
+                                                                  "Travel":  2
+                                                              }
+                                               },
+                           "calibration":  {
+                                               "flagged":  {
+                                                               "count":  6,
+                                                               "wrong":  3,
+                                                               "wrongPct":  50
+                                                           },
+                                               "confident":  {
+                                                                 "count":  25,
+                                                                 "wrong":  1,
+                                                                 "wrongPct":  4
+                                                             },
+                                               "confidentMistakes":  [
+                                                                         {
+                                                                             "merchant":  "Uber",
+                                                                             "said":  "Travel",
+                                                                             "expected":  "Transport",
+                                                                             "confidence":  0.95
+                                                                         }
+                                                                     ]
+                                           },
+                           "detail":  [
+                                          {
+                                              "id":  "swiggy",
+                                              "merchant":  "Swiggy",
+                                              "amount":  450.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Food \u0026 Dining",
+                                              "actual":  "Food \u0026 Dining",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "Swiggy is a well-known online food delivery and dining service.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "bluetokai",
+                                              "merchant":  "Blue Tokai Coffee",
+                                              "amount":  410.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Food \u0026 Dining",
+                                              "actual":  "Food \u0026 Dining",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "Blue Tokai Coffee is a well-known cafe and coffee shop chain.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "zomato",
+                                              "merchant":  "Zomato",
+                                              "amount":  220.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Food \u0026 Dining",
+                                              "actual":  "Food \u0026 Dining",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "Zomato is a well-known online food delivery and restaurant discovery service.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "bigbasket",
+                                              "merchant":  "BigBasket",
+                                              "amount":  3200.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Groceries",
+                                              "actual":  "Groceries",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "BigBasket is a well-known online grocery delivery platform.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "blinkit",
+                                              "merchant":  "Blinkit",
+                                              "amount":  1120.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Groceries",
+                                              "actual":  "Groceries",
+                                              "confidence":  0.99,
+                                              "needsReview":  false,
+                                              "reasoning":  "Blinkit is a well-known quick-commerce platform primarily used for purchasing groceries and household essentials.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "uber",
+                                              "merchant":  "Uber",
+                                              "amount":  185.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Transport",
+                                              "actual":  "Travel",
+                                              "confidence":  0.95,
+                                              "needsReview":  false,
+                                              "reasoning":  "The merchant Uber is commonly used for rideshare and travel services.",
+                                              "result":  "FAIL"
+                                          },
+                                          {
+                                              "id":  "ola",
+                                              "merchant":  "Ola Cabs",
+                                              "amount":  263.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Transport",
+                                              "actual":  "Transport",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "Ola Cabs is a well-known ride-sharing service used for transportation.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "indianoil",
+                                              "merchant":  "Indian Oil",
+                                              "amount":  2000.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Transport",
+                                              "actual":  "Transport",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "Indian Oil is a major fuel retailer, so this transaction is for vehicle fuel and falls under Transport.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "amazon",
+                                              "merchant":  "Amazon",
+                                              "amount":  1899.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Shopping",
+                                              "actual":  "Shopping",
+                                              "confidence":  0.95,
+                                              "needsReview":  false,
+                                              "reasoning":  "Amazon is a major online retailer primarily used for purchasing general consumer goods.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "flipkart",
+                                              "merchant":  "Flipkart",
+                                              "amount":  899.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Shopping",
+                                              "actual":  "Shopping",
+                                              "confidence":  0.99,
+                                              "needsReview":  false,
+                                              "reasoning":  "Flipkart is a major e-commerce platform primarily used for online retail shopping.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "croma",
+                                              "merchant":  "Croma",
+                                              "amount":  4599.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Shopping",
+                                              "actual":  "Shopping",
+                                              "confidence":  0.95,
+                                              "needsReview":  false,
+                                              "reasoning":  "Croma is a well-known electronics retail chain, which falls under general shopping.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "myntra-refund",
+                                              "merchant":  "Myntra",
+                                              "amount":  1500.00,
+                                              "type":  "CREDIT",
+                                              "expected":  "Shopping",
+                                              "actual":  "Shopping",
+                                              "confidence":  0.95,
+                                              "needsReview":  false,
+                                              "reasoning":  "Myntra is a popular e-commerce platform primarily used for purchasing apparel and lifestyle products, and a credit indicates a refund for a returned purchase.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "bescom",
+                                              "merchant":  "BESCOM",
+                                              "amount":  2340.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Bills \u0026 Utilities",
+                                              "actual":  "Bills \u0026 Utilities",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "BESCOM is a known electricity supply company, making this a utility bill payment.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "airtel",
+                                              "merchant":  "Airtel",
+                                              "amount":  999.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Bills \u0026 Utilities",
+                                              "actual":  "Bills \u0026 Utilities",
+                                              "confidence":  0.95,
+                                              "needsReview":  false,
+                                              "reasoning":  "Airtel is a major telecommunications provider, typically associated with mobile and internet bill payments.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "netflix",
+                                              "merchant":  "Netflix",
+                                              "amount":  649.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Subscriptions",
+                                              "actual":  "Subscriptions",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "Netflix is a well-known streaming service subscription.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "spotify",
+                                              "merchant":  "Spotify",
+                                              "amount":  119.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Subscriptions",
+                                              "actual":  "Subscriptions",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "Spotify is a well-known digital music streaming service charged on a recurring basis.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "hotstar",
+                                              "merchant":  "Hotstar",
+                                              "amount":  299.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Subscriptions",
+                                              "actual":  "Subscriptions",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "Hotstar is a well-known digital streaming platform that operates on a subscription model.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "bookmyshow",
+                                              "merchant":  "BookMyShow",
+                                              "amount":  799.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Entertainment",
+                                              "actual":  "Entertainment",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "BookMyShow is a well-known platform for booking movie and event tickets, which falls under entertainment.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "apollo",
+                                              "merchant":  "Apollo Pharmacy",
+                                              "amount":  1250.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Health",
+                                              "actual":  "Health",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "Apollo Pharmacy is a well-known retail pharmacy chain specializing in medical and health-related products.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "pharmeasy",
+                                              "merchant":  "PharmEasy",
+                                              "amount":  735.50,
+                                              "type":  "DEBIT",
+                                              "expected":  "Health",
+                                              "actual":  "Health",
+                                              "confidence":  0.99,
+                                              "needsReview":  false,
+                                              "reasoning":  "PharmEasy is an online pharmacy and healthcare platform, making this a health-related expense.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "irctc",
+                                              "merchant":  "IRCTC",
+                                              "amount":  5600.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Travel",
+                                              "actual":  "Travel",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "IRCTC is the state-owned railway ticketing platform in India, used for booking train travel.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "makemytrip",
+                                              "merchant":  "MakeMyTrip",
+                                              "amount":  8450.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Travel",
+                                              "actual":  "Travel",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "MakeMyTrip is a well-known online travel booking platform used for flights, hotels, and holiday packages.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "salary",
+                                              "merchant":  "Acme Technologies Pvt Ltd",
+                                              "amount":  75000.00,
+                                              "type":  "CREDIT",
+                                              "expected":  "Income",
+                                              "actual":  "Income",
+                                              "confidence":  0.95,
+                                              "needsReview":  false,
+                                              "reasoning":  "A large credit transaction from a corporate entity strongly indicates a salary or business revenue payment.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "interest",
+                                              "merchant":  "ICICI Bank",
+                                              "amount":  412.00,
+                                              "type":  "CREDIT",
+                                              "expected":  "Income",
+                                              "actual":  "Income",
+                                              "confidence":  0.8,
+                                              "needsReview":  false,
+                                              "reasoning":  "A credit transaction from a major bank often indicates incoming funds such as interest or a refund.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "credit-priya",
+                                              "merchant":  "Priya Sharma",
+                                              "amount":  2000.00,
+                                              "type":  "CREDIT",
+                                              "expected":  "Transfers",
+                                              "actual":  "Needs Manual Categorization",
+                                              "confidence":  0.5,
+                                              "needsReview":  true,
+                                              "reasoning":  "The merchant is a personal name and the context is insufficient to determine if this is a transfer or income.",
+                                              "result":  "FAIL"
+                                          },
+                                          {
+                                              "id":  "credit-anjali",
+                                              "merchant":  "Anjali Verma",
+                                              "amount":  5000.00,
+                                              "type":  "CREDIT",
+                                              "expected":  "Transfers",
+                                              "actual":  "Needs Manual Categorization",
+                                              "confidence":  0.8,
+                                              "needsReview":  true,
+                                              "reasoning":  "The merchant name appears to be a personal name and the transaction type is a credit, requiring manual review to determine the exact nature of the funds.",
+                                              "result":  "FAIL"
+                                          },
+                                          {
+                                              "id":  "self-transfer",
+                                              "merchant":  "Self Account Transfer",
+                                              "amount":  10000.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Transfers",
+                                              "actual":  "Transfers",
+                                              "confidence":  1,
+                                              "needsReview":  false,
+                                              "reasoning":  "The transaction explicitly indicates a movement of funds between accounts.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "debit-rahul",
+                                              "merchant":  "Rahul K",
+                                              "amount":  500.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Needs Manual Categorization",
+                                              "actual":  "Needs Manual Categorization",
+                                              "confidence":  0.9,
+                                              "needsReview":  true,
+                                              "reasoning":  "The merchant name appears to be a personal name and the transaction type is a debit without sufficient context to determine the exact category.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "debit-suresh",
+                                              "merchant":  "Suresh Kumar",
+                                              "amount":  22000.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Needs Manual Categorization",
+                                              "actual":  "Needs Manual Categorization",
+                                              "confidence":  0.9,
+                                              "needsReview":  true,
+                                              "reasoning":  "The merchant name appears to be a personal name and the context is insufficient to determine the specific purpose of the large debit transaction.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "debit-vikram",
+                                              "merchant":  "Vikram",
+                                              "amount":  1200.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Needs Manual Categorization",
+                                              "actual":  "Needs Manual Categorization",
+                                              "confidence":  0.8,
+                                              "needsReview":  true,
+                                              "reasoning":  "The merchant name appears to be a personal name and the context is insufficient to determine the specific purpose of the debit.",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "id":  "unknown-biz",
+                                              "merchant":  "SHREE ENTERPRISES",
+                                              "amount":  1800.00,
+                                              "type":  "DEBIT",
+                                              "expected":  "Other",
+                                              "actual":  "Needs Manual Categorization",
+                                              "confidence":  0.4,
+                                              "needsReview":  true,
+                                              "reasoning":  "The merchant name is generic and does not clearly indicate a specific business type, requiring manual review.",
+                                              "result":  "FAIL"
+                                          }
+                                      ]
+                       },
+    "query":  {
+                  "cases":  13,
+                  "errors":  0,
+                  "dataset":  {
+                                  "transactions":  40,
+                                  "embeddedMerchants":  31
+                              },
+                  "routing":  {
+                                  "correct":  13,
+                                  "total":  13,
+                                  "pct":  100
+                              },
+                  "aggregation":  {
+                                      "correct":  9,
+                                      "total":  10,
+                                      "pct":  90
+                                  },
+                  "resolution":  {
+                                     "correct":  9,
+                                     "total":  9,
+                                     "pct":  100
+                                 },
+                  "detail":  [
+                                 {
+                                     "id":  "flight-booking",
+                                     "question":  "how much did I pay for my flight booking",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "FAIL",
+                                     "expectedValue":  14650,
+                                     "actualValue":  20250,
+                                     "resolution":  "PASS",
+                                     "surfacedMerchants":  [
+                                                               "MakeMyTrip",
+                                                               "Rahul K",
+                                                               "Priya Sharma",
+                                                               "IRCTC",
+                                                               "Uber",
+                                                               "Amazon",
+                                                               "BOOKMYSHOW",
+                                                               "Suresh Kumar",
+                                                               "Myntra",
+                                                               "Ola Cabs"
+                                                           ],
+                                     "sql":  "SELECT SUM(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027MakeMyTrip\u0027, \u0027IRCTC\u0027]) AND (category ILIKE \u0027Travel\u0027 OR raw_text ILIKE \u0027%flight%\u0027) AND transaction_type = \u0027DEBIT\u0027",
+                                     "answer":  "You paid ₹20,250.00 for your flight booking."
+                                 },
+                                 {
+                                     "id":  "coffee",
+                                     "question":  "how much have I spent on coffee",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "PASS",
+                                     "expectedValue":  1645,
+                                     "actualValue":  1645,
+                                     "resolution":  "PASS",
+                                     "surfacedMerchants":  [
+                                                               "Starbucks",
+                                                               "Blue Tokai Coffee",
+                                                               "Blue Tokai",
+                                                               "Amazon",
+                                                               "Rahul K",
+                                                               "Blinkit",
+                                                               "Bigbasket",
+                                                               "Priya Sharma",
+                                                               "Netflix",
+                                                               "Spotify"
+                                                           ],
+                                     "sql":  "SELECT sum(amount) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND (merchant ILIKE ANY (ARRAY[\u0027Starbucks\u0027, \u0027Blue Tokai Coffee\u0027, \u0027Blue Tokai\u0027]) OR raw_text ILIKE \u0027%coffee%\u0027)",
+                                     "answer":  "You have spent ₹1,645.00 on coffee."
+                                 },
+                                 {
+                                     "id":  "cab-rides",
+                                     "question":  "how much did I spend on cab rides",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "PASS",
+                                     "expectedValue":  796,
+                                     "actualValue":  796,
+                                     "resolution":  "PASS",
+                                     "surfacedMerchants":  [
+                                                               "Ola Cabs",
+                                                               "Uber",
+                                                               "Uber India",
+                                                               "Rahul K",
+                                                               "MakeMyTrip",
+                                                               "Priya Sharma",
+                                                               "Suresh Kumar",
+                                                               "Myntra",
+                                                               "Amazon",
+                                                               "Netflix"
+                                                           ],
+                                     "sql":  "SELECT SUM(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Ola Cabs\u0027, \u0027Uber\u0027, \u0027Uber India\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                     "answer":  "You spent ₹796.00 on cab rides."
+                                 },
+                                 {
+                                     "id":  "medicines",
+                                     "question":  "what have I spent on medicines",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "PASS",
+                                     "expectedValue":  3860.5,
+                                     "actualValue":  3860.5,
+                                     "resolution":  "PASS",
+                                     "surfacedMerchants":  [
+                                                               "PharmEasy",
+                                                               "Apollo Pharmacy",
+                                                               "Rahul K",
+                                                               "Amazon",
+                                                               "Priya Sharma",
+                                                               "Suresh Kumar",
+                                                               "Blinkit",
+                                                               "Bigbasket",
+                                                               "Myntra",
+                                                               "FLIPKART"
+                                                           ],
+                                     "sql":  "SELECT sum(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027PharmEasy\u0027, \u0027Apollo Pharmacy\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                     "answer":  "You have spent ₹3,860.50 on medicines."
+                                 },
+                                 {
+                                     "id":  "streaming",
+                                     "question":  "how much do my streaming subscriptions cost in total",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "PASS",
+                                     "expectedValue":  1067,
+                                     "actualValue":  1067,
+                                     "resolution":  "PASS",
+                                     "surfacedMerchants":  [
+                                                               "Netflix",
+                                                               "Spotify",
+                                                               "Amazon",
+                                                               "Rahul K",
+                                                               "Hotstar",
+                                                               "Priya Sharma",
+                                                               "Suresh Kumar",
+                                                               "Airtel",
+                                                               "Uber",
+                                                               "Blinkit"
+                                                           ],
+                                     "sql":  "SELECT sum(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Netflix\u0027, \u0027Spotify\u0027, \u0027Hotstar\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                     "answer":  "Your streaming subscriptions cost a total of ₹1,067.00."
+                                 },
+                                 {
+                                     "id":  "fuel",
+                                     "question":  "how much have I spent on petrol",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "PASS",
+                                     "expectedValue":  2000,
+                                     "actualValue":  2000,
+                                     "resolution":  "PASS",
+                                     "surfacedMerchants":  [
+                                                               "Rahul K",
+                                                               "Uber",
+                                                               "INDIAN OIL",
+                                                               "Amazon",
+                                                               "Suresh Kumar",
+                                                               "Priya Sharma",
+                                                               "Ola Cabs",
+                                                               "Spotify",
+                                                               "Uber India",
+                                                               "Blinkit"
+                                                           ],
+                                     "sql":  "SELECT sum(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027INDIAN OIL\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                     "answer":  "You have spent ₹2000.00 on petrol."
+                                 },
+                                 {
+                                     "id":  "groceries-category",
+                                     "question":  "how much did I spend on groceries",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "PASS",
+                                     "expectedValue":  6965.75,
+                                     "actualValue":  6965.75,
+                                     "resolution":  null,
+                                     "surfacedMerchants":  [
+
+                                                           ],
+                                     "sql":  "SELECT sum(amount) FROM transactions WHERE category ILIKE \u0027Groceries\u0027 AND transaction_type = \u0027DEBIT\u0027",
+                                     "answer":  "You spent a total of ₹6965.75 on groceries."
+                                 },
+                                 {
+                                     "id":  "total-spend",
+                                     "question":  "what is my total spend across all transactions",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "PASS",
+                                     "expectedValue":  76720.25,
+                                     "actualValue":  76720.25,
+                                     "resolution":  null,
+                                     "surfacedMerchants":  [
+
+                                                           ],
+                                     "sql":  "SELECT sum(amount) FROM transactions WHERE transaction_type ILIKE \u0027DEBIT\u0027",
+                                     "answer":  "Your total spend across all transactions is ₹76,720.25."
+                                 },
+                                 {
+                                     "id":  "transaction-count",
+                                     "question":  "how many transactions do I have in total",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "PASS",
+                                     "expectedValue":  40,
+                                     "actualValue":  40,
+                                     "resolution":  null,
+                                     "surfacedMerchants":  [
+
+                                                           ],
+                                     "sql":  "SELECT count(*) FROM transactions",
+                                     "answer":  "You have a total of 40 transactions."
+                                 },
+                                 {
+                                     "id":  "biggest-debit",
+                                     "question":  "what is the largest amount I have ever paid out",
+                                     "expectedMethod":  "sql",
+                                     "routedTo":  "sql",
+                                     "method":  "sql",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  "PASS",
+                                     "expectedValue":  22000,
+                                     "actualValue":  22000,
+                                     "resolution":  null,
+                                     "surfacedMerchants":  [
+
+                                                           ],
+                                     "sql":  "SELECT MAX(amount) FROM transactions WHERE transaction_type ILIKE \u0027DEBIT\u0027",
+                                     "answer":  "The largest amount you have ever paid out is ₹22,000.00."
+                                 },
+                                 {
+                                     "id":  "semantic-pharmacy",
+                                     "question":  "show me the payment I made at the pharmacy",
+                                     "expectedMethod":  "rag",
+                                     "routedTo":  "rag",
+                                     "method":  "rag",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  null,
+                                     "expectedValue":  null,
+                                     "actualValue":  null,
+                                     "resolution":  "PASS",
+                                     "surfacedMerchants":  [
+                                                               "APOLLO PHARMACY",
+                                                               "Apollo Pharmacy",
+                                                               "PharmEasy",
+                                                               "Starbucks",
+                                                               "Amazon"
+                                                           ],
+                                     "sql":  null,
+                                     "answer":  "You made two payments at Apollo Pharmacy: ₹1,875.00 on October 14, 2026, and ₹1,250.00 on September 18, 2026. Additionally, you made a payment of ₹735.50 at PharmEasy on October 4, 2026."
+                                 },
+                                 {
+                                     "id":  "semantic-big-transfer",
+                                     "question":  "remind me about that large transfer I sent to someone",
+                                     "expectedMethod":  "rag",
+                                     "routedTo":  "rag",
+                                     "method":  "rag",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  null,
+                                     "expectedValue":  null,
+                                     "actualValue":  null,
+                                     "resolution":  "PASS",
+                                     "surfacedMerchants":  [
+                                                               "Priya Sharma",
+                                                               "Rahul K",
+                                                               "Suresh Kumar",
+                                                               "Uber India",
+                                                               "Amazon"
+                                                           ],
+                                     "sql":  null,
+                                     "answer":  "You sent a large transfer of ₹22,000.00 via NEFT to Suresh Kumar on October 11, 2026."
+                                 },
+                                 {
+                                     "id":  "semantic-electronics",
+                                     "question":  "which transaction was for electronics",
+                                     "expectedMethod":  "rag",
+                                     "routedTo":  "rag",
+                                     "method":  "rag",
+                                     "fellBackFromSql":  false,
+                                     "routing":  "PASS",
+                                     "aggregation":  null,
+                                     "expectedValue":  null,
+                                     "actualValue":  null,
+                                     "resolution":  "PASS",
+                                     "surfacedMerchants":  [
+                                                               "Croma Electronics",
+                                                               "Amazon",
+                                                               "Amazon",
+                                                               "FLIPKART",
+                                                               "Croma"
+                                                           ],
+                                     "sql":  null,
+                                     "answer":  "The transactions for electronics were at Croma Electronics for ₹2,250.00 on 21-10-26 and at Croma for ₹4,599.00 on 08-10-26."
+                                 }
+                             ]
+              },
+    "runFinished":  "2026-10-23T07:17:40.7101070+05:30",
+    "durationMinutes":  7.6
+}

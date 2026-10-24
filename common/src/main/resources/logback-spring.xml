@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  One log format for all eight services. This file lives in the shared common jar rather than
+  being copied into each service: Spring Boot finds logback-spring.xml anywhere on the
+  classpath, and the service name comes from a property, so there is nothing per-service left
+  to copy and therefore nothing to drift.
+
+  Every event is one JSON object with the same seven fields, which is what makes
+    Select-String <correlationId> logs\*.json        (local)
+    docker compose logs | Select-String <correlationId>   (containers)
+  reconstruct the full path of a single SMS across services in timestamp order.
+-->
+<configuration>
+    <springProperty scope="context" name="SERVICE_NAME" source="spring.application.name"
+                    defaultValue="unknown"/>
+
+    <!--
+      Absolute by default, so the working directory does not decide where logs land. A relative
+      "logs" put them under whatever directory each service happened to be started from - the
+      module directory under IntelliJ, the repo root from the command line - which is exactly
+      how a trace ends up scattered across seven folders and looks like a missing log line.
+
+      SPENDSENSE_LOG_DIR overrides it, and must be set wherever this path does not exist. Under
+      the prod profile nothing writes here at all; see the root loggers at the bottom.
+    -->
+    <property name="LOG_DIR"
+              value="${SPENDSENSE_LOG_DIR:-D:/personalProjects/SpendSense-AI-Event-Driven-Personal-Finance-Intelligence-Platform/logs}"/>
+
+    <!-- correlationId and eventId are written through the pattern provider, not the mdc
+         provider, so the keys are always present (empty when unset) instead of appearing and
+         disappearing. A consumer of these logs can rely on the shape. -->
+    <appender name="JSON_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                    <timeZone>UTC</timeZone>
+                    <pattern>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</pattern>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "service": "${SERVICE_NAME}",
+                        "correlationId": "%mdc{correlationId:-}",
+                        "eventId": "%mdc{eventId:-}"
+                        }
+                    </pattern>
+                </pattern>
+                <logLevel><fieldName>level</fieldName></logLevel>
+                <message><fieldName>message</fieldName></message>
+                <loggerName><fieldName>logger</fieldName></loggerName>
+                <stackTrace><fieldName>stackTrace</fieldName></stackTrace>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Kafka's own clients log a line per partition assignment and per metadata refresh,
+         which buries the pipeline's own events. Outside any profile block, so the levels apply
+         in every environment. -->
+    <logger name="org.apache.kafka" level="WARN"/>
+    <logger name="org.springframework.kafka" level="INFO"/>
+
+    <!--
+      The root logger is declared once per profile rather than once with a conditional inside
+      it. Spring Boot rejects a <springProfile> nested within <root>, <logger> or <appender> -
+      and it does not merely ignore it: the sanity checker drops the whole <root> element, the
+      root ends up with no appenders, and the service starts up completely silent after the
+      banner. Verified the hard way in a container.
+    -->
+    <springProfile name="prod">
+        <!-- stdout only. A container's log collector reads stdout; a rolling file inside the
+             container writes to an ephemeral layer that nothing reads and nothing prunes. -->
+        <root level="INFO">
+            <appender-ref ref="JSON_CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="!prod">
+        <!-- The file appender is DEFINED in here, not merely left unreferenced, because
+             logback opens the file as soon as it instantiates the appender. -->
+        <appender name="JSON_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_DIR}/${SERVICE_NAME}.json</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_DIR}/${SERVICE_NAME}.%d{yyyy-MM-dd}.%i.json</fileNamePattern>
+                <maxFileSize>10MB</maxFileSize>
+                <maxHistory>7</maxHistory>
+                <totalSizeCap>200MB</totalSizeCap>
+            </rollingPolicy>
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <timestamp>
+                        <fieldName>timestamp</fieldName>
+                        <timeZone>UTC</timeZone>
+                        <pattern>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</pattern>
+                    </timestamp>
+                    <pattern>
+                        <pattern>
+                            {
+                            "service": "${SERVICE_NAME}",
+                            "correlationId": "%mdc{correlationId:-}",
+                            "eventId": "%mdc{eventId:-}"
+                            }
+                        </pattern>
+                    </pattern>
+                    <logLevel><fieldName>level</fieldName></logLevel>
+                    <message><fieldName>message</fieldName></message>
+                    <loggerName><fieldName>logger</fieldName></loggerName>
+                    <stackTrace><fieldName>stackTrace</fieldName></stackTrace>
+                </providers>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="JSON_CONSOLE"/>
+            <appender-ref ref="JSON_FILE"/>
+        </root>
+    </springProfile>
+</configuration>

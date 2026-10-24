@@ -1,0 +1,291 @@
+{
+    "description":  "Labeled merchant/amount/type triples for the categorization eval. Sent straight to POST /api/categorize on categorization-service, which runs the same CategorizationDecider the Kafka listener runs. Extraction is deliberately not in the loop: scoring categorization through the pipeline would make a wrong merchant indistinguishable from a wrong category.",
+    "labellingNote":  "Two rules decide the person-to-person cases, and they are a product decision rather than a fact about the data. A CREDIT from an individual is Transfers, not Income - money arriving from a person is not earnings. A DEBIT to a bare personal name with no further context is \u0027Needs Manual Categorization\u0027, because rent, a loan repayment and a split dinner bill are indistinguishable from the merchant string alone and only the account holder knows which it was. Money between the holder\u0027s own accounts is Transfers in either direction. The categorization prompt previously said to use Transfers whenever money was \u0027sent to/from a known individual\u0027, which contradicted the second rule; it now states the direction rule explicitly, so the gap the eval used to report is closed and these labels grade against the prompt rather than against the product\u0027s intent alone. The pair direction-debit-meera / direction-credit-meera exists to measure exactly that: same name, same amount, opposite direction, different correct answer.",
+    "cases":  [
+                  {
+                      "id":  "swiggy",
+                      "merchant":  "Swiggy",
+                      "amount":  450.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Food \u0026 Dining"
+                  },
+                  {
+                      "id":  "bluetokai",
+                      "merchant":  "Blue Tokai Coffee",
+                      "amount":  410.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Food \u0026 Dining",
+                      "acceptableAlternatives":  [
+                                                     "Groceries"
+                                                 ]
+                  },
+                  {
+                      "id":  "zomato",
+                      "merchant":  "Zomato",
+                      "amount":  220.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Food \u0026 Dining"
+                  },
+                  {
+                      "id":  "bigbasket",
+                      "merchant":  "BigBasket",
+                      "amount":  3200.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Groceries"
+                  },
+                  {
+                      "id":  "blinkit",
+                      "merchant":  "Blinkit",
+                      "amount":  1120.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Groceries",
+                      "acceptableAlternatives":  [
+                                                     "Food \u0026 Dining"
+                                                 ]
+                  },
+                  {
+                      "id":  "uber",
+                      "merchant":  "Uber",
+                      "amount":  185.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Transport",
+                      "acceptableAlternatives":  [
+                                                     "Travel"
+                                                 ]
+                  },
+                  {
+                      "id":  "ola",
+                      "merchant":  "Ola Cabs",
+                      "amount":  263.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Transport",
+                      "acceptableAlternatives":  [
+                                                     "Travel"
+                                                 ]
+                  },
+                  {
+                      "id":  "indianoil",
+                      "merchant":  "Indian Oil",
+                      "amount":  2000.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Transport",
+                      "acceptableAlternatives":  [
+                                                     "Bills \u0026 Utilities"
+                                                 ]
+                  },
+                  {
+                      "id":  "amazon",
+                      "merchant":  "Amazon",
+                      "amount":  1899.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Shopping"
+                  },
+                  {
+                      "id":  "flipkart",
+                      "merchant":  "Flipkart",
+                      "amount":  899.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Shopping"
+                  },
+                  {
+                      "id":  "croma",
+                      "merchant":  "Croma",
+                      "amount":  4599.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Shopping",
+                      "acceptableAlternatives":  [
+                                                     "Other"
+                                                 ]
+                  },
+                  {
+                      "id":  "myntra-refund",
+                      "merchant":  "Myntra",
+                      "amount":  1500.00,
+                      "transactionType":  "CREDIT",
+                      "expected":  "Shopping",
+                      "acceptableAlternatives":  [
+                                                     "Transfers"
+                                                 ]
+                  },
+                  {
+                      "id":  "bescom",
+                      "merchant":  "BESCOM",
+                      "amount":  2340.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Bills \u0026 Utilities"
+                  },
+                  {
+                      "id":  "airtel",
+                      "merchant":  "Airtel",
+                      "amount":  999.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Bills \u0026 Utilities"
+                  },
+                  {
+                      "id":  "netflix",
+                      "merchant":  "Netflix",
+                      "amount":  649.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Subscriptions"
+                  },
+                  {
+                      "id":  "spotify",
+                      "merchant":  "Spotify",
+                      "amount":  119.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Subscriptions"
+                  },
+                  {
+                      "id":  "hotstar",
+                      "merchant":  "Hotstar",
+                      "amount":  299.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Subscriptions",
+                      "acceptableAlternatives":  [
+                                                     "Entertainment"
+                                                 ]
+                  },
+                  {
+                      "id":  "bookmyshow",
+                      "merchant":  "BookMyShow",
+                      "amount":  799.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Entertainment",
+                      "acceptableAlternatives":  [
+                                                     "Subscriptions"
+                                                 ]
+                  },
+                  {
+                      "id":  "apollo",
+                      "merchant":  "Apollo Pharmacy",
+                      "amount":  1250.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Health"
+                  },
+                  {
+                      "id":  "pharmeasy",
+                      "merchant":  "PharmEasy",
+                      "amount":  735.50,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Health"
+                  },
+                  {
+                      "id":  "irctc",
+                      "merchant":  "IRCTC",
+                      "amount":  5600.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Travel",
+                      "acceptableAlternatives":  [
+                                                     "Transport"
+                                                 ]
+                  },
+                  {
+                      "id":  "makemytrip",
+                      "merchant":  "MakeMyTrip",
+                      "amount":  8450.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Travel"
+                  },
+                  {
+                      "id":  "salary",
+                      "merchant":  "Acme Technologies Pvt Ltd",
+                      "amount":  75000.00,
+                      "transactionType":  "CREDIT",
+                      "expected":  "Income",
+                      "note":  "A company paying a large round sum monthly is the one credit that really is Income."
+                  },
+                  {
+                      "id":  "interest",
+                      "merchant":  "ICICI Bank",
+                      "amount":  412.00,
+                      "transactionType":  "CREDIT",
+                      "expected":  "Income",
+                      "note":  "Savings interest. Income rather than Transfers: the money is earned, not moved.",
+                      "acceptableAlternatives":  [
+                                                     "Transfers",
+                                                     "Other"
+                                                 ]
+                  },
+                  {
+                      "id":  "credit-priya",
+                      "merchant":  "Priya Sharma",
+                      "amount":  2000.00,
+                      "transactionType":  "CREDIT",
+                      "expected":  "Transfers",
+                      "note":  "The known Phase 1 miss: categorized Income at 0.95 confidence. A credit from an individual is a transfer, not earnings."
+                  },
+                  {
+                      "id":  "credit-anjali",
+                      "merchant":  "Anjali Verma",
+                      "amount":  5000.00,
+                      "transactionType":  "CREDIT",
+                      "expected":  "Transfers"
+                  },
+                  {
+                      "id":  "self-transfer",
+                      "merchant":  "Self Account Transfer",
+                      "amount":  10000.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Transfers",
+                      "note":  "Money between the holder\u0027s own accounts - the unambiguous Transfers case.",
+                      "acceptableAlternatives":  [
+                                                     "Other"
+                                                 ]
+                  },
+                  {
+                      "id":  "debit-rahul",
+                      "merchant":  "Rahul K",
+                      "amount":  500.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Needs Manual Categorization",
+                      "note":  "A bare personal name with no context. Could be a split bill, a loan repayment or a gift."
+                  },
+                  {
+                      "id":  "debit-suresh",
+                      "merchant":  "Suresh Kumar",
+                      "amount":  22000.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Needs Manual Categorization",
+                      "note":  "Looks like rent, but nothing in the merchant string says so."
+                  },
+                  {
+                      "id":  "debit-vikram",
+                      "merchant":  "Vikram",
+                      "amount":  1200.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Needs Manual Categorization"
+                  },
+                  {
+                      "id":  "unknown-biz",
+                      "merchant":  "SHREE ENTERPRISES",
+                      "amount":  1800.00,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Other",
+                      "note":  "A real business, but the name says nothing about what it sells. Other, not a guess.",
+                      "acceptableAlternatives":  [
+                                                     "Needs Manual Categorization"
+                                                 ]
+                  },
+                  {
+                      "id":  "direction-debit-meera",
+                      "merchant":  "Meera Nair",
+                      "amount":  3500,
+                      "transactionType":  "DEBIT",
+                      "expected":  "Needs Manual Categorization",
+                      "note":  "Direction pair, DEBIT half. Same bare personal name as the CREDIT case below, same amount shape, opposite direction. Added with the prompt fix that made direction decide the category, so that the two halves cannot both be satisfied by one blanket answer.",
+                      "source":  "Written for the direction rule. Pairs with direction-credit-meera."
+                  },
+                  {
+                      "id":  "direction-credit-meera",
+                      "merchant":  "Meera Nair",
+                      "amount":  3500,
+                      "transactionType":  "CREDIT",
+                      "expected":  "Transfers",
+                      "note":  "Direction pair, CREDIT half. Identical merchant and amount to the DEBIT case above; only transactionType differs, so answering both correctly requires reading the direction. Must not be Income.",
+                      "source":  "Written for the direction rule. Pairs with direction-debit-meera."
+                  }
+              ],
+    "set":  "dev",
+    "provenance":  "Merchant triples drawn from the dev extraction SMS plus the person-to-person cases that have failed before. CONTAMINATED: the Priya Sharma failure in this set drove the \u0027Needs Manual Categorization\u0027 wording in the categorization prompt.",
+    "ambiguityNote":  "acceptableAlternatives lists categories a careful human could also defend. Accuracy is strict - only \u0027expected\u0027 counts - but a miss landing in the alternatives is classified \u0027ambiguous\u0027 rather than \u0027clearly wrong\u0027 in the error taxonomy. Declared before any run so the classification cannot be fitted to results."
+}

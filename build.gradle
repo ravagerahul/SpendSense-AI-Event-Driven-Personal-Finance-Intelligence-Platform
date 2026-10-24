@@ -1,0 +1,46 @@
+plugins {
+    id 'org.springframework.boot' version '3.3.0' apply false
+    id 'io.spring.dependency-management' version '1.1.5' apply false
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    group = 'com.spendsense'
+    version = '0.0.1-SNAPSHOT'
+
+    java {
+        sourceCompatibility = '17'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.kafka:spring-kafka'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+        // Correlation ids, the JSON log format and /api/health, auto-configured. Every service
+        // needs them, so this is declared once here rather than seven times. :common itself is
+        // excluded, since it cannot depend on itself.
+        if (project.name != 'common') {
+            implementation project(':common')
+        }
+    }
+
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
+    }
+
+    // Service modules produce only their executable bootJar. Without this the plugin also
+    // writes <name>-plain.jar, and every consumer - the Dockerfiles, the start scripts - has to
+    // know which of the two files in build/libs is the runnable one. :common is the exception:
+    // it is a library, so the plain jar is the whole point and its own build file enables it.
+    if (project.name != 'common') {
+        tasks.named('jar') { enabled = false }
+    }
+}

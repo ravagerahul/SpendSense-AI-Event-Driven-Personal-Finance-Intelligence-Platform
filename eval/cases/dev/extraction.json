@@ -1,0 +1,658 @@
+{
+    "description":  "Labeled bank SMS for the extraction eval. Every message follows a documented real-world Indian bank SMS format (HDFC, ICICI, SBI, Axis, Kotak - UPI debits, card spends, NEFT credits and UPI refunds). They are synthetic messages written to those formats, not anyone\u0027s personal SMS.",
+    "fields":  "amount, merchant, transactionType, transactionDate, accountLast4 are scored independently. \u0027merchant\u0027 is a list of acceptable spellings; comparison is case- and punctuation-insensitive. expected=null means the message is not a transaction and must never be stored.",
+    "cases":  [
+                  {
+                      "id":  "hdfc-upi-swiggy",
+                      "bank":  "HDFC",
+                      "format":  "UPI debit",
+                      "sms":  "Rs.450.00 debited from A/c XX1234 on 12-09-26 to VPA swiggy@ybl (UPI Ref 625412345678). Not you? Call 18002586161 -HDFC Bank",
+                      "expected":  {
+                                       "amount":  450.00,
+                                       "merchant":  [
+                                                        "Swiggy"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-12",
+                                       "accountLast4":  "1234"
+                                   },
+                      "source":  "HDFC Bank UPI debit alert, \u0027Rs.X debited from A/c XXnnnn on DD-MM-YY to VPA handle (UPI Ref)\u0027 template."
+                  },
+                  {
+                      "id":  "hdfc-card-amazon",
+                      "bank":  "HDFC",
+                      "format":  "card spend",
+                      "sms":  "Rs 1899.00 spent on HDFC Bank Card x4321 at AMAZON on 2026-09-13:10:22:05. Avl Lmt Rs 52000.00. Not you? Call 18002586161",
+                      "expected":  {
+                                       "amount":  1899.00,
+                                       "merchant":  [
+                                                        "Amazon"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-13",
+                                       "accountLast4":  "4321"
+                                   },
+                      "source":  "HDFC Bank card alert, \u0027Rs X spent on HDFC Bank Card xnnnn at MERCHANT on YYYY-MM-DD:HH:MM:SS\u0027 template."
+                  },
+                  {
+                      "id":  "icici-upi-zomato",
+                      "bank":  "ICICI",
+                      "format":  "UPI debit",
+                      "sms":  "ICICI Bank Acct XX5678 debited for Rs 220.00 on 14-Sep-26; zomato@icici credited. UPI:625498765432. Call 18002662 for dispute",
+                      "expected":  {
+                                       "amount":  220.00,
+                                       "merchant":  [
+                                                        "Zomato"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-14",
+                                       "accountLast4":  "5678"
+                                   },
+                      "source":  "ICICI Bank UPI debit alert, \u0027Acct XXnnnn debited for Rs X on DD-Mon-YY; handle credited\u0027 template."
+                  },
+                  {
+                      "id":  "axis-upi-bigbasket",
+                      "bank":  "Axis",
+                      "format":  "UPI debit",
+                      "sms":  "Dear Customer, Rs.3200.00 debited from A/c XX9012 on 15/09/26 and credited to bigbasket@axisbank (UPI Ref 625511112222). -Axis Bank",
+                      "expected":  {
+                                       "amount":  3200.00,
+                                       "merchant":  [
+                                                        "BigBasket",
+                                                        "Big Basket"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-15",
+                                       "accountLast4":  "9012"
+                                   },
+                      "source":  "Axis Bank UPI debit alert, \u0027Rs.X debited from A/c XXnnnn on DD/MM/YY and credited to handle\u0027 template."
+                  },
+                  {
+                      "id":  "sbi-upi-uber",
+                      "bank":  "SBI",
+                      "format":  "UPI debit",
+                      "sms":  "Your a/c no. XXXXXXXX3456 is debited by Rs.185.00 on 16Sep26 trf to UBER INDIA Refno 625522223333. If not done by you, call 1800111109. -SBI",
+                      "expected":  {
+                                       "amount":  185.00,
+                                       "merchant":  [
+                                                        "Uber",
+                                                        "Uber India"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-16",
+                                       "accountLast4":  "3456"
+                                   },
+                      "source":  "SBI debit alert, \u0027Your a/c no. XXXXXXXXnnnn is debited by Rs.X on DDMonYY trf to MERCHANT Refno\u0027 template."
+                  },
+                  {
+                      "id":  "kotak-upi-netflix",
+                      "bank":  "Kotak",
+                      "format":  "UPI debit",
+                      "sms":  "Rs.649.00 debited from Kotak Bank AC X7788 on 17-09-26 to netflix@icici. UPI Ref 625533334444. Not you? kotak.com/fraud",
+                      "expected":  {
+                                       "amount":  649.00,
+                                       "merchant":  [
+                                                        "Netflix"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-17",
+                                       "accountLast4":  "7788"
+                                   },
+                      "source":  "Kotak Mahindra Bank UPI debit alert, \u0027Rs.X debited from Kotak Bank AC Xnnnn on DD-MM-YY to handle\u0027 template."
+                  },
+                  {
+                      "id":  "hdfc-upi-apollo",
+                      "bank":  "HDFC",
+                      "format":  "UPI debit",
+                      "sms":  "Rs.1250.00 debited from A/c XX1234 on 18-09-26 to VPA apollopharmacy@ybl (UPI Ref 625544445555). Not you? Call 18002586161 -HDFC Bank",
+                      "expected":  {
+                                       "amount":  1250.00,
+                                       "merchant":  [
+                                                        "Apollo Pharmacy",
+                                                        "Apollo"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-18",
+                                       "accountLast4":  "1234"
+                                   },
+                      "source":  "HDFC Bank UPI debit alert, same template as hdfc-upi-swiggy with a different payee."
+                  },
+                  {
+                      "id":  "icici-bill-bescom",
+                      "bank":  "ICICI",
+                      "format":  "biller debit",
+                      "sms":  "ICICI Bank Acct XX5678 debited Rs 2340.00 on 19-Sep-26 for BESCOM electricity bill payment. Ref 625555556666. Call 18002662 for dispute",
+                      "expected":  {
+                                       "amount":  2340.00,
+                                       "merchant":  [
+                                                        "BESCOM"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-19",
+                                       "accountLast4":  "5678"
+                                   },
+                      "source":  "ICICI Bank biller alert, \u0027Acct XXnnnn debited Rs X on DD-Mon-YY for BILLER bill payment\u0027 template."
+                  },
+                  {
+                      "id":  "axis-card-bookmyshow",
+                      "bank":  "Axis",
+                      "format":  "card spend",
+                      "sms":  "Spent Card no. XX9012 INR 799 20-09-26 11:04:33 BOOKMYSHOW Avl Lmt INR 60000. SMS BLOCK 9012 to 919951860002, if not you - Axis Bank",
+                      "expected":  {
+                                       "amount":  799.00,
+                                       "merchant":  [
+                                                        "BookMyShow",
+                                                        "Book My Show"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-20",
+                                       "accountLast4":  "9012"
+                                   },
+                      "source":  "Axis Bank card alert, \u0027Spent Card no. XXnnnn INR X DD-MM-YY HH:MM:SS MERCHANT Avl Lmt\u0027 template."
+                  },
+                  {
+                      "id":  "sbi-upi-irctc",
+                      "bank":  "SBI",
+                      "format":  "UPI debit",
+                      "sms":  "Your a/c no. XXXXXXXX3456 is debited by Rs.5600.00 on 21Sep26 trf to IRCTC Refno 625577778888. If not done by you, call 1800111109. -SBI",
+                      "expected":  {
+                                       "amount":  5600.00,
+                                       "merchant":  [
+                                                        "IRCTC"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-21",
+                                       "accountLast4":  "3456"
+                                   },
+                      "source":  "SBI debit alert, same template as sbi-upi-uber with a different payee."
+                  },
+                  {
+                      "id":  "icici-credit-priya",
+                      "bank":  "ICICI",
+                      "format":  "UPI credit from individual",
+                      "sms":  "ICICI Bank Acct XX5678 credited Rs 2000.00 on 22-Sep-26 from Priya Sharma. UPI:625588889999. Call 18002662 for dispute",
+                      "expected":  {
+                                       "amount":  2000.00,
+                                       "merchant":  [
+                                                        "Priya Sharma",
+                                                        "Priya"
+                                                    ],
+                                       "transactionType":  "CREDIT",
+                                       "transactionDate":  "2026-09-22",
+                                       "accountLast4":  "5678"
+                                   },
+                      "source":  "ICICI Bank credit alert, \u0027Acct XXnnnn credited Rs X on DD-Mon-YY from PAYER\u0027 template."
+                  },
+                  {
+                      "id":  "kotak-upi-rahul",
+                      "bank":  "Kotak",
+                      "format":  "UPI debit to individual",
+                      "sms":  "Sent Rs.500.00 from Kotak Bank AC X7788 to rahul.k@oksbi on 23-09-26. UPI Ref 625599990000. Not you, kotak.com/fraud",
+                      "expected":  {
+                                       "amount":  500.00,
+                                       "merchant":  [
+                                                        "Rahul",
+                                                        "Rahul K"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-23",
+                                       "accountLast4":  "7788"
+                                   },
+                      "source":  "Kotak Mahindra Bank UPI debit alert, \u0027Sent Rs.X from Kotak Bank AC Xnnnn to handle on DD-MM-YY\u0027 template."
+                  },
+                  {
+                      "id":  "hdfc-upi-starbucks",
+                      "bank":  "HDFC",
+                      "format":  "UPI debit",
+                      "sms":  "Rs.320.00 debited from A/c XX1234 on 24-09-26 to VPA starbucks@hdfcbank (UPI Ref 625600001111). Not you? Call 18002586161 -HDFC Bank",
+                      "expected":  {
+                                       "amount":  320.00,
+                                       "merchant":  [
+                                                        "Starbucks"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-24",
+                                       "accountLast4":  "1234"
+                                   },
+                      "source":  "HDFC Bank UPI debit alert, same template as hdfc-upi-swiggy."
+                  },
+                  {
+                      "id":  "icici-card-flipkart",
+                      "bank":  "ICICI",
+                      "format":  "card spend",
+                      "sms":  "Rs 899.00 spent using ICICI Bank Card XX2468 on 25-Sep-26 on FLIPKART. Avl Limit: Rs 41000.00. If not you, call 18002662",
+                      "expected":  {
+                                       "amount":  899.00,
+                                       "merchant":  [
+                                                        "Flipkart"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-25",
+                                       "accountLast4":  "2468"
+                                   },
+                      "source":  "ICICI Bank card alert, \u0027Rs X spent using ICICI Bank Card XXnnnn on DD-Mon-YY on MERCHANT\u0027 template."
+                  },
+                  {
+                      "id":  "axis-upi-spotify",
+                      "bank":  "Axis",
+                      "format":  "UPI debit",
+                      "sms":  "Dear Customer, Rs.119.00 debited from A/c XX9012 on 26/09/26 and credited to spotify@axisbank (UPI Ref 625611112222). -Axis Bank",
+                      "expected":  {
+                                       "amount":  119.00,
+                                       "merchant":  [
+                                                        "Spotify"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-26",
+                                       "accountLast4":  "9012"
+                                   },
+                      "source":  "Axis Bank UPI debit alert, same template as axis-upi-bigbasket."
+                  },
+                  {
+                      "id":  "sbi-refund-myntra",
+                      "bank":  "SBI",
+                      "format":  "UPI refund credit",
+                      "sms":  "Dear Customer, your a/c no. XXXXXXXX3456 is credited by Rs.1500.00 on 27Sep26 by UPI refund from MYNTRA Refno 625622223333. -SBI",
+                      "expected":  {
+                                       "amount":  1500.00,
+                                       "merchant":  [
+                                                        "Myntra"
+                                                    ],
+                                       "transactionType":  "CREDIT",
+                                       "transactionDate":  "2026-09-27",
+                                       "accountLast4":  "3456"
+                                   },
+                      "source":  "SBI credit alert, \u0027your a/c no. XXXXXXXXnnnn is credited by Rs.X on DDMonYY by UPI refund from MERCHANT\u0027 template."
+                  },
+                  {
+                      "id":  "hdfc-upi-makemytrip-flight",
+                      "bank":  "HDFC",
+                      "format":  "UPI debit",
+                      "sms":  "Rs.8450.00 debited from A/c XX1234 on 28-09-26 to VPA makemytrip@hdfcbank (UPI Ref 625633334444). Not you? Call 18002586161 -HDFC Bank",
+                      "expected":  {
+                                       "amount":  8450.00,
+                                       "merchant":  [
+                                                        "MakeMyTrip",
+                                                        "Make My Trip"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-28",
+                                       "accountLast4":  "1234"
+                                   },
+                      "source":  "HDFC Bank UPI debit alert, same template as hdfc-upi-swiggy."
+                  },
+                  {
+                      "id":  "icici-card-makemytrip-flight-2",
+                      "bank":  "ICICI",
+                      "format":  "card spend",
+                      "sms":  "Rs 6200.00 spent using ICICI Bank Card XX2468 on 29-Sep-26 on MAKEMYTRIP. Avl Limit: Rs 34800.00. If not you, call 18002662",
+                      "expected":  {
+                                       "amount":  6200.00,
+                                       "merchant":  [
+                                                        "MakeMyTrip",
+                                                        "Make My Trip"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-29",
+                                       "accountLast4":  "2468"
+                                   },
+                      "source":  "ICICI Bank card alert, same template as icici-card-flipkart."
+                  },
+                  {
+                      "id":  "kotak-upi-bluetokai",
+                      "bank":  "Kotak",
+                      "format":  "UPI debit",
+                      "sms":  "Rs.410.00 debited from Kotak Bank AC X7788 on 30-09-26 to bluetokai@ybl. UPI Ref 625644445555. Not you? kotak.com/fraud",
+                      "expected":  {
+                                       "amount":  410.00,
+                                       "merchant":  [
+                                                        "Blue Tokai",
+                                                        "Blue Tokai Coffee"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-09-30",
+                                       "accountLast4":  "7788"
+                                   },
+                      "source":  "Kotak Mahindra Bank UPI debit alert, same template as kotak-upi-netflix."
+                  },
+                  {
+                      "id":  "hdfc-salary-acme",
+                      "bank":  "HDFC",
+                      "format":  "NEFT salary credit",
+                      "sms":  "Rs.75000.00 credited to A/c XX1234 on 01-10-26 by NEFT from ACME TECHNOLOGIES PVT LTD (Salary). -HDFC Bank",
+                      "expected":  {
+                                       "amount":  75000.00,
+                                       "merchant":  [
+                                                        "Acme Technologies",
+                                                        "Acme Technologies Pvt Ltd",
+                                                        "Acme"
+                                                    ],
+                                       "transactionType":  "CREDIT",
+                                       "transactionDate":  "2026-10-01",
+                                       "accountLast4":  "1234"
+                                   },
+                      "source":  "HDFC Bank NEFT credit alert, \u0027Rs.X credited to A/c XXnnnn on DD-MM-YY by NEFT from PAYER (Salary)\u0027 template."
+                  },
+                  {
+                      "id":  "axis-upi-ola",
+                      "bank":  "Axis",
+                      "format":  "UPI debit",
+                      "sms":  "Dear Customer, Rs.263.00 debited from A/c XX9012 on 02/10/26 and credited to olacabs@axisbank (UPI Ref 625655556666). -Axis Bank",
+                      "expected":  {
+                                       "amount":  263.00,
+                                       "merchant":  [
+                                                        "Ola",
+                                                        "Ola Cabs",
+                                                        "Olacabs"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-02",
+                                       "accountLast4":  "9012"
+                                   },
+                      "source":  "Axis Bank UPI debit alert, same template as axis-upi-bigbasket."
+                  },
+                  {
+                      "id":  "sbi-upi-indianoil",
+                      "bank":  "SBI",
+                      "format":  "UPI debit",
+                      "sms":  "Your a/c no. XXXXXXXX3456 is debited by Rs.2000.00 on 03Oct26 trf to INDIAN OIL Refno 625666667777. If not done by you, call 1800111109. -SBI",
+                      "expected":  {
+                                       "amount":  2000.00,
+                                       "merchant":  [
+                                                        "Indian Oil",
+                                                        "IndianOil",
+                                                        "Indian Oil Corporation"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-03",
+                                       "accountLast4":  "3456"
+                                   },
+                      "source":  "SBI debit alert, same template as sbi-upi-uber."
+                  },
+                  {
+                      "id":  "icici-upi-pharmeasy",
+                      "bank":  "ICICI",
+                      "format":  "UPI debit",
+                      "sms":  "ICICI Bank Acct XX5678 debited for Rs 735.50 on 04-Oct-26; pharmeasy@icici credited. UPI:625677778888. Call 18002662 for dispute",
+                      "expected":  {
+                                       "amount":  735.50,
+                                       "merchant":  [
+                                                        "PharmEasy",
+                                                        "Pharm Easy"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-04",
+                                       "accountLast4":  "5678"
+                                   },
+                      "source":  "ICICI Bank UPI debit alert, same template as icici-upi-zomato."
+                  },
+                  {
+                      "id":  "hdfc-bill-airtel",
+                      "bank":  "HDFC",
+                      "format":  "biller debit",
+                      "sms":  "Rs.999.00 debited from A/c XX1234 on 05-10-26 towards AIRTEL postpaid bill payment (Ref 625688889999). -HDFC Bank",
+                      "expected":  {
+                                       "amount":  999.00,
+                                       "merchant":  [
+                                                        "Airtel",
+                                                        "Bharti Airtel"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-05",
+                                       "accountLast4":  "1234"
+                                   },
+                      "source":  "HDFC Bank biller alert, \u0027Rs.X debited from A/c XXnnnn on DD-MM-YY towards BILLER bill payment\u0027 template."
+                  },
+                  {
+                      "id":  "kotak-upi-blinkit",
+                      "bank":  "Kotak",
+                      "format":  "UPI debit",
+                      "sms":  "Rs.1120.00 debited from Kotak Bank AC X7788 on 06-10-26 to blinkit@ybl. UPI Ref 625699990000. Not you? kotak.com/fraud",
+                      "expected":  {
+                                       "amount":  1120.00,
+                                       "merchant":  [
+                                                        "Blinkit"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-06",
+                                       "accountLast4":  "7788"
+                                   },
+                      "source":  "Kotak Mahindra Bank UPI debit alert, same template as kotak-upi-netflix."
+                  },
+                  {
+                      "id":  "axis-upi-hotstar",
+                      "bank":  "Axis",
+                      "format":  "UPI debit",
+                      "sms":  "Dear Customer, Rs.299.00 debited from A/c XX9012 on 07/10/26 and credited to hotstar@axisbank (UPI Ref 625700001111). -Axis Bank",
+                      "expected":  {
+                                       "amount":  299.00,
+                                       "merchant":  [
+                                                        "Hotstar",
+                                                        "Disney+ Hotstar",
+                                                        "JioHotstar"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-07",
+                                       "accountLast4":  "9012"
+                                   },
+                      "source":  "Axis Bank UPI debit alert, same template as axis-upi-bigbasket."
+                  },
+                  {
+                      "id":  "sbi-card-croma",
+                      "bank":  "SBI",
+                      "format":  "card spend",
+                      "sms":  "Rs.4599.00 spent on your SBI Card ending 8899 at CROMA on 08-10-26. Avl Limit Rs 95401.00. Not you? Call 18001801290",
+                      "expected":  {
+                                       "amount":  4599.00,
+                                       "merchant":  [
+                                                        "Croma",
+                                                        "Croma Electronics"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-08",
+                                       "accountLast4":  "8899"
+                                   },
+                      "source":  "SBI Card alert, \u0027Rs.X spent on your SBI Card ending nnnn at MERCHANT on DD-MM-YY\u0027 template."
+                  },
+                  {
+                      "id":  "hdfc-upi-swiggy-2",
+                      "bank":  "HDFC",
+                      "format":  "UPI debit",
+                      "sms":  "Rs.612.00 debited from A/c XX1234 on 09-10-26 to VPA swiggy@ybl (UPI Ref 625711112222). Not you? Call 18002586161 -HDFC Bank",
+                      "expected":  {
+                                       "amount":  612.00,
+                                       "merchant":  [
+                                                        "Swiggy"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-09",
+                                       "accountLast4":  "1234"
+                                   },
+                      "source":  "HDFC Bank UPI debit alert, same template as hdfc-upi-swiggy, repeat merchant."
+                  },
+                  {
+                      "id":  "icici-upi-uber-2",
+                      "bank":  "ICICI",
+                      "format":  "UPI debit",
+                      "sms":  "ICICI Bank Acct XX5678 debited for Rs 348.00 on 10-Oct-26; uber@icici credited. UPI:625722223333. Call 18002662 for dispute",
+                      "expected":  {
+                                       "amount":  348.00,
+                                       "merchant":  [
+                                                        "Uber",
+                                                        "Uber India"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-10",
+                                       "accountLast4":  "5678"
+                                   },
+                      "source":  "ICICI Bank UPI debit alert, same template as icici-upi-zomato, repeat merchant."
+                  },
+                  {
+                      "id":  "kotak-neft-rent",
+                      "bank":  "Kotak",
+                      "format":  "NEFT debit to individual",
+                      "sms":  "Rs.22000.00 debited from Kotak Bank AC X7788 on 11-10-26 by NEFT to SURESH KUMAR. Ref 625733334444. Not you? kotak.com/fraud",
+                      "expected":  {
+                                       "amount":  22000.00,
+                                       "merchant":  [
+                                                        "Suresh Kumar",
+                                                        "Suresh"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-11",
+                                       "accountLast4":  "7788"
+                                   },
+                      "source":  "Kotak Mahindra Bank NEFT debit alert, \u0027Rs.X debited from Kotak Bank AC Xnnnn on DD-MM-YY by NEFT to PAYEE\u0027 template."
+                  },
+                  {
+                      "id":  "axis-upi-bigbasket-2",
+                      "bank":  "Axis",
+                      "format":  "UPI debit",
+                      "sms":  "Dear Customer, Rs.1465.75 debited from A/c XX9012 on 12/10/26 and credited to bigbasket@axisbank (UPI Ref 625744445555). -Axis Bank",
+                      "expected":  {
+                                       "amount":  1465.75,
+                                       "merchant":  [
+                                                        "BigBasket",
+                                                        "Big Basket"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-12",
+                                       "accountLast4":  "9012"
+                                   },
+                      "source":  "Axis Bank UPI debit alert, same template as axis-upi-bigbasket, repeat merchant."
+                  },
+                  {
+                      "id":  "sbi-upi-bluetokai-2",
+                      "bank":  "SBI",
+                      "format":  "UPI debit",
+                      "sms":  "Your a/c no. XXXXXXXX3456 is debited by Rs.275.00 on 13Oct26 trf to BLUE TOKAI COFFEE Refno 625755556666. If not done by you, call 1800111109. -SBI",
+                      "expected":  {
+                                       "amount":  275.00,
+                                       "merchant":  [
+                                                        "Blue Tokai",
+                                                        "Blue Tokai Coffee"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-13",
+                                       "accountLast4":  "3456"
+                                   },
+                      "source":  "SBI debit alert, same template as sbi-upi-uber, repeat merchant in upper case."
+                  },
+                  {
+                      "id":  "hdfc-card-apollo-2",
+                      "bank":  "HDFC",
+                      "format":  "card spend",
+                      "sms":  "Rs 1875.00 spent on HDFC Bank Card x4321 at APOLLO PHARMACY on 2026-10-14:19:41:02. Avl Lmt Rs 48226.00. Not you? Call 18002586161",
+                      "expected":  {
+                                       "amount":  1875.00,
+                                       "merchant":  [
+                                                        "Apollo Pharmacy",
+                                                        "Apollo"
+                                                    ],
+                                       "transactionType":  "DEBIT",
+                                       "transactionDate":  "2026-10-14",
+                                       "accountLast4":  "4321"
+                                   },
+                      "source":  "HDFC Bank card alert, same template as hdfc-card-amazon."
+                  },
+                  {
+                      "id":  "icici-interest-credit",
+                      "bank":  "ICICI",
+                      "format":  "interest credit",
+                      "sms":  "ICICI Bank Acct XX5678 credited Rs 412.00 on 15-Oct-26 towards quarterly savings account interest. Ref 625766667777",
+                      "expected":  {
+                                       "amount":  412.00,
+                                       "merchant":  [
+                                                        "ICICI Bank",
+                                                        "ICICI"
+                                                    ],
+                                       "transactionType":  "CREDIT",
+                                       "transactionDate":  "2026-10-15",
+                                       "accountLast4":  "5678"
+                                   },
+                      "source":  "ICICI Bank interest credit alert, \u0027Acct XXnnnn credited Rs X on DD-Mon-YY towards quarterly savings account interest\u0027 template."
+                  },
+                  {
+                      "id":  "nt-otp-hdfc",
+                      "bank":  "HDFC",
+                      "format":  "OTP",
+                      "sms":  "123456 is your OTP for HDFC Bank NetBanking login. Valid for 10 minutes. Do not share it with anyone. -HDFC Bank",
+                      "expected":  null,
+                      "source":  "HDFC Bank NetBanking OTP template."
+                  },
+                  {
+                      "id":  "nt-otp-icici-upi",
+                      "bank":  "ICICI",
+                      "format":  "OTP",
+                      "sms":  "Use OTP 884512 to register your UPI ID with ICICI Bank. Never share this code. Valid till 14:35 hrs.",
+                      "expected":  null,
+                      "source":  "ICICI Bank UPI registration OTP template."
+                  },
+                  {
+                      "id":  "nt-promo-icici",
+                      "bank":  "ICICI",
+                      "format":  "promotion",
+                      "sms":  "Get 20% cashback up to Rs 500 on your next ICICI Bank credit card spend this weekend! T\u0026C apply. Visit icicibank.com/offers",
+                      "expected":  null,
+                      "source":  "ICICI Bank credit card marketing SMS."
+                  },
+                  {
+                      "id":  "nt-promo-axis-loan",
+                      "bank":  "Axis",
+                      "format":  "promotion",
+                      "sms":  "Dear Customer, you are pre-approved for a personal loan of Rs 5,00,000 at 10.49% p.a. Apply in 2 mins at axisbank.com/pl -Axis Bank",
+                      "expected":  null,
+                      "source":  "Axis Bank pre-approved personal loan marketing SMS."
+                  },
+                  {
+                      "id":  "nt-balance-axis",
+                      "bank":  "Axis",
+                      "format":  "balance alert",
+                      "sms":  "Your A/c XX9012 available balance is Rs 48210.55 as on 28-09-26 09:00 hrs. -Axis Bank",
+                      "expected":  null,
+                      "source":  "Axis Bank daily balance SMS."
+                  },
+                  {
+                      "id":  "nt-balance-sbi",
+                      "bank":  "SBI",
+                      "format":  "balance alert",
+                      "sms":  "Dear SBI Customer, the available balance in your a/c no. XXXXXXXX3456 as on 30Sep26 is Rs.1,12,480.19. -SBI",
+                      "expected":  null,
+                      "source":  "SBI daily balance SMS."
+                  },
+                  {
+                      "id":  "nt-delivery-amazon",
+                      "bank":  "n/a",
+                      "format":  "delivery update",
+                      "sms":  "Your Amazon order of Rs 1899 is out for delivery and will arrive today by 9 PM. Track at amzn.in/track",
+                      "expected":  null,
+                      "source":  "Amazon order-status SMS."
+                  },
+                  {
+                      "id":  "nt-delivery-swiggy",
+                      "bank":  "n/a",
+                      "format":  "delivery update",
+                      "sms":  "Your Swiggy order from Blue Tokai Coffee has been picked up and is 8 minutes away. Order total Rs 410.",
+                      "expected":  null,
+                      "source":  "Swiggy order-status SMS."
+                  },
+                  {
+                      "id":  "nt-statement-reminder",
+                      "bank":  "HDFC",
+                      "format":  "statement reminder",
+                      "sms":  "Your HDFC Bank Credit Card statement for Sep-26 is ready. Total due Rs 14,562.00, min due Rs 728.00, due date 05-10-26. Pay at hdfcbank.com",
+                      "expected":  null,
+                      "source":  "HDFC Bank credit card statement-ready SMS."
+                  },
+                  {
+                      "id":  "nt-mandate-notice",
+                      "bank":  "Kotak",
+                      "format":  "upcoming mandate notice",
+                      "sms":  "An e-mandate of Rs.649.00 for NETFLIX will be debited from your Kotak Bank AC X7788 on 17-11-26. To cancel, visit kotak.com/mandates",
+                      "expected":  null,
+                      "source":  "Kotak Mahindra Bank e-mandate pre-debit notification."
+                  }
+              ],
+    "set":  "dev",
+    "provenance":  "Written from documented HDFC, ICICI, SBI, Axis and Kotak SMS templates. CONTAMINATED: failures in this set were used to change the extraction prompt and the schema description, so its score is an upper bound. Score the held-out set in eval/cases/test for an honest figure."
+}

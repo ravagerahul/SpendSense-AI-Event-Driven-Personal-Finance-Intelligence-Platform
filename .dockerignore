@@ -1,0 +1,29 @@
+# The build context is the whole repository, so what is excluded here is the difference
+# between a few MB and a few hundred. Everything below is either regenerated inside the image
+# or must never reach one.
+
+# Build output and caches - the image builds these itself
+.gradle/
+build/
+*/build/
+*/.gradle/
+frontend/node_modules/
+frontend/dist/
+
+# Secrets. .env holds the Gemini key and the Postgres password; it is read by compose on the
+# host and must never be baked into a layer, where it would survive deletion.
+.env
+.env.local
+*.env
+
+# Local runtime state
+logs/
+
+# IDE and VCS
+.idea/
+.git/
+*.iml
+
+# Documentation and tooling that the build does not read
+*.md
+!gradle/wrapper/gradle-wrapper.jar

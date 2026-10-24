@@ -1,0 +1,36 @@
+# Evaluation override. Use it only to run eval.ps1 against the containerized stack:
+#
+#   docker compose -f docker-compose.prod.yml -f docker-compose.eval.yml --env-file .env up -d
+#
+# docker-compose.prod.yml publishes nothing but Caddy, which is the point of the deployment:
+# the BFF pattern is enforced by the network rather than by convention. The eval needs to reach
+# three services directly, so it is honest about what it is doing rather than quietly adding
+# eval-only routes to the Caddyfile that would then be live in production:
+#
+#   8081  extraction-service      POST /api/extract, a measurement endpoint with no Caddy route.
+#   8082  categorization-service  POST /api/categorize, likewise.
+#   8085  query-service           POST /api/query, measured directly rather than through the
+#                                 BFF's proxy, so a proxy timeout cannot look like a bad answer.
+#   8080  ingestion-service       the pipeline's inlet. Not used by the scored evals, which call
+#                                 the components directly; kept published so an end-to-end check
+#                                 can be run by hand alongside them.
+#
+# Bound to 127.0.0.1 explicitly, so even while the eval is running these ports are not reachable
+# from another machine. Bring the stack back up without this file when the run is finished.
+
+services:
+  ingestion-service:
+    ports:
+      - "127.0.0.1:8080:8080"
+
+  extraction-service:
+    ports:
+      - "127.0.0.1:8081:8081"
+
+  categorization-service:
+    ports:
+      - "127.0.0.1:8082:8082"
+
+  query-service:
+    ports:
+      - "127.0.0.1:8085:8085"

@@ -1,0 +1,1095 @@
+{
+    "runStarted":  "2026-10-23T14:43:48.1079247+05:30",
+    "model":  null,
+    "runs":  2,
+    "sets":  "test",
+    "suites":  "query",
+    "endpoints":  {
+                      "extract":  "http://localhost:8081/api/extract",
+                      "categorize":  "http://localhost:8082/api/categorize",
+                      "query":  "http://localhost:8085/api/query"
+                  },
+    "results":  {
+                    "query":  {
+                                  "test":  {
+                                               "caseCount":  15,
+                                               "provenance":  "HELD-OUT query cases. Fifteen questions in phrasings that have never been run against this system before and have never been used to change the router, the SQL prompt or the schema description.",
+                                               "baseline":  {
+                                                                "metrics":  {
+                                                                                "routing":  80,
+                                                                                "aggregation":  0,
+                                                                                "resolution":  0
+                                                                            },
+                                                                "detail":  [
+                                                                               {
+                                                                                   "id":  "t-eating-out",
+                                                                                   "question":  "what did I shell out on eating out",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "rag",
+                                                                                   "routingPass":  false,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e rag"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-sent-to-people",
+                                                                                   "question":  "add up everything I sent to individual people rather than to businesses",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "sql",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e sql"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-money-in",
+                                                                                   "question":  "how much money came into my account altogether",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "sql",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e sql"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-average-size",
+                                                                                   "question":  "what is my average transaction size",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "sql",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e sql"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-count-swiggy",
+                                                                                   "question":  "how many separate payments did I make to Swiggy",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "sql",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e sql"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-utility-bills",
+                                                                                   "question":  "what do my phone and electricity bills add up to",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "sql",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e sql"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-online-shopping",
+                                                                                   "question":  "how much have I put into online shopping sites",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "sql",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e sql"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-largest-single",
+                                                                                   "question":  "which single payment was the largest one I have made",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "sql",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e sql"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-getting-around",
+                                                                                   "question":  "what did I spend getting around the city",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "rag",
+                                                                                   "routingPass":  false,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e rag"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-streaming-two",
+                                                                                   "question":  "total spent on video and music streaming services",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "sql",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e sql"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-train-ticket",
+                                                                                   "question":  "how much did my train ticket cost",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "sql",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e sql"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-coffee-habit",
+                                                                                   "question":  "roughly what do I pay for my coffee habit",
+                                                                                   "expectedMethod":  "sql",
+                                                                                   "routedTo":  "rag",
+                                                                                   "routingPass":  false,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e rag"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-semantic-landlord",
+                                                                                   "question":  "find the payment I made to my landlord",
+                                                                                   "expectedMethod":  "rag",
+                                                                                   "routedTo":  "rag",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e rag"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-semantic-gadget",
+                                                                                   "question":  "which purchase was for a gadget",
+                                                                                   "expectedMethod":  "rag",
+                                                                                   "routedTo":  "rag",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e rag"
+                                                                               },
+                                                                               {
+                                                                                   "id":  "t-semantic-friend",
+                                                                                   "question":  "show me the money a friend sent me",
+                                                                                   "expectedMethod":  "rag",
+                                                                                   "routedTo":  "rag",
+                                                                                   "routingPass":  true,
+                                                                                   "aggregation":  null,
+                                                                                   "resolution":  null,
+                                                                                   "classes":  [
+
+                                                                                               ],
+                                                                                   "detail":  "heuristic -\u003e rag"
+                                                                               }
+                                                                           ]
+                                                            },
+                                               "runsCompleted":  2,
+                                               "perRunMetrics":  [
+                                                                     {
+                                                                         "routing":  93.3,
+                                                                         "aggregation":  75,
+                                                                         "resolution":  100
+                                                                     },
+                                                                     {
+                                                                         "routing":  100,
+                                                                         "aggregation":  75,
+                                                                         "resolution":  100
+                                                                     }
+                                                                 ],
+                                               "detail":  [
+                                                              [
+                                                                  {
+                                                                      "id":  "t-eating-out",
+                                                                      "question":  "what did I shell out on eating out",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  3597,
+                                                                      "actualValue":  3597,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Zomato",
+                                                                                                "Rahul K",
+                                                                                                "Swiggy",
+                                                                                                "Priya Sharma",
+                                                                                                "Blinkit",
+                                                                                                "Amazon",
+                                                                                                "Starbucks",
+                                                                                                "Suresh Kumar",
+                                                                                                "Bigbasket",
+                                                                                                "Myntra"
+                                                                                            ],
+                                                                      "sql":  "SELECT SUM(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Zomato\u0027, \u0027Swiggy\u0027, \u0027Starbucks\u0027]) OR category ILIKE \u0027Food \u0026 Dining\u0027",
+                                                                      "answer":  "You spent ₹3597.00 on eating out.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 3597 want 3597"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-sent-to-people",
+                                                                      "question":  "add up everything I sent to individual people rather than to businesses",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  22500,
+                                                                      "actualValue":  22500,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Priya Sharma",
+                                                                                                "Amazon",
+                                                                                                "Rahul K",
+                                                                                                "Uber",
+                                                                                                "Suresh Kumar",
+                                                                                                "Netflix",
+                                                                                                "Spotify",
+                                                                                                "ICICI Bank",
+                                                                                                "Croma",
+                                                                                                "Starbucks"
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Priya Sharma\u0027, \u0027Rahul K\u0027, \u0027Suresh Kumar\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                                                      "answer":  "You sent a total of ₹22,500.00 to individual people rather than to businesses.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 22500 want 22500"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-money-in",
+                                                                      "question":  "how much money came into my account altogether",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  78912,
+                                                                      "actualValue":  78912,
+                                                                      "resolution":  null,
+                                                                      "surfacedMerchants":  [
+
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE transaction_type ILIKE \u0027CREDIT\u0027",
+                                                                      "answer":  "Altogether, ₹78,912.00 came into your account.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 78912 want 78912"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-average-size",
+                                                                      "question":  "what is my average transaction size",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  false,
+                                                                      "expectedValue":  3890.81,
+                                                                      "actualValue":  2131.1180555555557,
+                                                                      "resolution":  null,
+                                                                      "surfacedMerchants":  [
+
+                                                                                            ],
+                                                                      "sql":  "SELECT avg(amount) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027",
+                                                                      "answer":  "Your average transaction size is ₹2,131.12.",
+                                                                      "classes":  [
+                                                                                      "sql-undermatch"
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 2131.11805555556 want 3890.81"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-count-swiggy",
+                                                                      "question":  "how many separate payments did I make to Swiggy",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  3,
+                                                                      "actualValue":  3,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Swiggy",
+                                                                                                "Blinkit",
+                                                                                                "Zomato",
+                                                                                                "Bigbasket",
+                                                                                                "FLIPKART",
+                                                                                                "Uber India",
+                                                                                                "Myntra",
+                                                                                                "MakeMyTrip",
+                                                                                                "Rahul K",
+                                                                                                "BOOKMYSHOW"
+                                                                                            ],
+                                                                      "sql":  "SELECT count(*) FROM transactions WHERE merchant ILIKE \u0027Swiggy\u0027 AND transaction_type ILIKE \u0027DEBIT\u0027",
+                                                                      "answer":  "You made 3 separate payments to Swiggy.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 3 want 3"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-utility-bills",
+                                                                      "question":  "what do my phone and electricity bills add up to",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  3339,
+                                                                      "actualValue":  3339,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "BESCOM",
+                                                                                                "Airtel",
+                                                                                                "Rahul K",
+                                                                                                "Priya Sharma",
+                                                                                                "Suresh Kumar",
+                                                                                                "Blinkit",
+                                                                                                "Amazon",
+                                                                                                "FLIPKART",
+                                                                                                "Bigbasket",
+                                                                                                "Uber"
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027BESCOM\u0027, \u0027Airtel\u0027]) OR category ILIKE \u0027Bills \u0026 Utilities\u0027 AND (raw_text ILIKE \u0027%phone%\u0027 OR raw_text ILIKE \u0027%electricity%\u0027 OR raw_text ILIKE \u0027%bill%\u0027)",
+                                                                      "answer":  "Your phone and electricity bills add up to a total of ₹3,339.00.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 3339 want 3339"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-online-shopping",
+                                                                      "question":  "how much have I put into online shopping sites",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  4697,
+                                                                      "actualValue":  4697,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Amazon",
+                                                                                                "Myntra",
+                                                                                                "FLIPKART",
+                                                                                                "Bigbasket",
+                                                                                                "Priya Sharma",
+                                                                                                "Rahul K",
+                                                                                                "Zomato",
+                                                                                                "IRCTC",
+                                                                                                "Blinkit",
+                                                                                                "Suresh Kumar"
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Amazon\u0027, \u0027Myntra\u0027, \u0027FLIPKART\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                                                      "answer":  "You have spent ₹4,697.00 on online shopping sites.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 4697 want 4697"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-largest-single",
+                                                                      "question":  "which single payment was the largest one I have made",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "rag",
+                                                                      "routingPass":  false,
+                                                                      "aggregation":  false,
+                                                                      "expectedValue":  22000,
+                                                                      "actualValue":  null,
+                                                                      "resolution":  null,
+                                                                      "surfacedMerchants":  [
+
+                                                                                            ],
+                                                                      "sql":  null,
+                                                                      "answer":  "The largest single payment you made was to Amazon for ₹1,899.00.",
+                                                                      "classes":  [
+                                                                                      "routing-error",
+                                                                                      "sql-no-answer"
+                                                                                  ],
+                                                                      "detail":  "route rag; agg got  want 22000"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-getting-around",
+                                                                      "question":  "what did I spend getting around the city",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  false,
+                                                                      "expectedValue":  796,
+                                                                      "actualValue":  2796,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Uber",
+                                                                                                "Ola Cabs",
+                                                                                                "Uber India",
+                                                                                                "Rahul K",
+                                                                                                "MakeMyTrip",
+                                                                                                "Priya Sharma",
+                                                                                                "Myntra",
+                                                                                                "BESCOM",
+                                                                                                "Suresh Kumar",
+                                                                                                "Amazon"
+                                                                                            ],
+                                                                      "sql":  "SELECT SUM(amount) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND (category ILIKE \u0027Transport\u0027 OR merchant ILIKE ANY (ARRAY[\u0027Uber\u0027, \u0027Ola Cabs\u0027, \u0027Uber India\u0027]) OR raw_text ILIKE ANY (ARRAY[\u0027%cab%\u0027, \u0027%uber%\u0027, \u0027%ola%\u0027, \u0027%transport%\u0027]))",
+                                                                      "answer":  "You spent ₹2,796.00 getting around the city.",
+                                                                      "classes":  [
+                                                                                      "sql-overmatch"
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 2796 want 796"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-streaming-two",
+                                                                      "question":  "total spent on video and music streaming services",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  1067,
+                                                                      "actualValue":  1067,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Amazon",
+                                                                                                "Spotify",
+                                                                                                "Netflix",
+                                                                                                "Rahul K",
+                                                                                                "Hotstar",
+                                                                                                "Suresh Kumar",
+                                                                                                "Priya Sharma",
+                                                                                                "Myntra",
+                                                                                                "FLIPKART",
+                                                                                                "Bigbasket"
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Spotify\u0027, \u0027Netflix\u0027, \u0027Hotstar\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                                                      "answer":  "You spent a total of ₹1,067.00 on video and music streaming services.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 1067 want 1067"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-train-ticket",
+                                                                      "question":  "how much did my train ticket cost",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  5600,
+                                                                      "actualValue":  5600,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "IRCTC",
+                                                                                                "Rahul K",
+                                                                                                "Uber",
+                                                                                                "MakeMyTrip",
+                                                                                                "Ola Cabs",
+                                                                                                "Priya Sharma",
+                                                                                                "Suresh Kumar",
+                                                                                                "Uber India",
+                                                                                                "Myntra",
+                                                                                                "BESCOM"
+                                                                                            ],
+                                                                      "sql":  "SELECT SUM(amount) FROM transactions WHERE merchant ILIKE \u0027IRCTC\u0027 AND transaction_type ILIKE \u0027DEBIT\u0027",
+                                                                      "answer":  "Your train ticket cost ₹5,600.00.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 5600 want 5600"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-coffee-habit",
+                                                                      "question":  "roughly what do I pay for my coffee habit",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  1645,
+                                                                      "actualValue":  1645,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Starbucks",
+                                                                                                "Blue Tokai Coffee",
+                                                                                                "Blue Tokai",
+                                                                                                "Amazon",
+                                                                                                "Blinkit",
+                                                                                                "Bigbasket",
+                                                                                                "Rahul K",
+                                                                                                "Myntra",
+                                                                                                "Priya Sharma",
+                                                                                                "BESCOM"
+                                                                                            ],
+                                                                      "sql":  "SELECT SUM(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Starbucks\u0027, \u0027Blue Tokai Coffee\u0027, \u0027Blue Tokai\u0027]) OR raw_text ILIKE \u0027%coffee%\u0027",
+                                                                      "answer":  "You pay roughly ₹1,645.00 for your coffee habit.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 1645 want 1645"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-semantic-landlord",
+                                                                      "question":  "find the payment I made to my landlord",
+                                                                      "expectedMethod":  "rag",
+                                                                      "routedTo":  "rag",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  null,
+                                                                      "expectedValue":  null,
+                                                                      "actualValue":  null,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Rahul K",
+                                                                                                "Suresh Kumar",
+                                                                                                "Starbucks",
+                                                                                                "Bigbasket",
+                                                                                                "Apollo Pharmacy"
+                                                                                            ],
+                                                                      "sql":  null,
+                                                                      "answer":  "You made a payment of ₹22,000.00 to your landlord, Suresh Kumar, via NEFT on October 11, 2026.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route rag"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-semantic-gadget",
+                                                                      "question":  "which purchase was for a gadget",
+                                                                      "expectedMethod":  "rag",
+                                                                      "routedTo":  "rag",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  null,
+                                                                      "expectedValue":  null,
+                                                                      "actualValue":  null,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Croma Electronics",
+                                                                                                "Amazon",
+                                                                                                "Amazon",
+                                                                                                "APOLLO PHARMACY",
+                                                                                                "Croma"
+                                                                                            ],
+                                                                      "sql":  null,
+                                                                      "answer":  "Your gadget purchases were made at Croma Electronics for ₹2,250.00 and at Croma for ₹4,599.00.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route rag"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-semantic-friend",
+                                                                      "question":  "show me the money a friend sent me",
+                                                                      "expectedMethod":  "rag",
+                                                                      "routedTo":  "rag",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  null,
+                                                                      "expectedValue":  null,
+                                                                      "actualValue":  null,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Priya Sharma",
+                                                                                                "Rahul K",
+                                                                                                "ACME TECHNOLOGIES PVT LTD",
+                                                                                                "Myntra",
+                                                                                                "Suresh Kumar"
+                                                                                            ],
+                                                                      "sql":  null,
+                                                                      "answer":  "Priya Sharma sent you ₹2,000.00 on September 22, 2026.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route rag"
+                                                                  }
+                                                              ],
+                                                              [
+                                                                  {
+                                                                      "id":  "t-eating-out",
+                                                                      "question":  "what did I shell out on eating out",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  false,
+                                                                      "expectedValue":  3597,
+                                                                      "actualValue":  2272,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Zomato",
+                                                                                                "Rahul K",
+                                                                                                "Swiggy",
+                                                                                                "Priya Sharma",
+                                                                                                "Blinkit",
+                                                                                                "Amazon",
+                                                                                                "Starbucks",
+                                                                                                "Suresh Kumar",
+                                                                                                "Bigbasket",
+                                                                                                "Myntra"
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE category ILIKE \u0027Food \u0026 Dining\u0027 AND merchant ILIKE ANY (ARRAY[\u0027Zomato\u0027, \u0027Swiggy\u0027, \u0027Starbucks\u0027])",
+                                                                      "answer":  "You spent ₹2,272.00 on eating out.",
+                                                                      "classes":  [
+                                                                                      "sql-undermatch"
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 2272 want 3597"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-sent-to-people",
+                                                                      "question":  "add up everything I sent to individual people rather than to businesses",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  22500,
+                                                                      "actualValue":  22500,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Priya Sharma",
+                                                                                                "Amazon",
+                                                                                                "Rahul K",
+                                                                                                "Uber",
+                                                                                                "Suresh Kumar",
+                                                                                                "Netflix",
+                                                                                                "Spotify",
+                                                                                                "ICICI Bank",
+                                                                                                "Croma",
+                                                                                                "Starbucks"
+                                                                                            ],
+                                                                      "sql":  "SELECT SUM(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Priya Sharma\u0027, \u0027Rahul K\u0027, \u0027Suresh Kumar\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                                                      "answer":  "You sent a total of ₹22,500.00 to individual people rather than businesses.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 22500 want 22500"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-money-in",
+                                                                      "question":  "how much money came into my account altogether",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  78912,
+                                                                      "actualValue":  78912,
+                                                                      "resolution":  null,
+                                                                      "surfacedMerchants":  [
+
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE transaction_type ILIKE \u0027CREDIT\u0027",
+                                                                      "answer":  "Altogether, ₹78,912.00 came into your account.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 78912 want 78912"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-average-size",
+                                                                      "question":  "what is my average transaction size",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  3890.81,
+                                                                      "actualValue":  3890.80625,
+                                                                      "resolution":  null,
+                                                                      "surfacedMerchants":  [
+
+                                                                                            ],
+                                                                      "sql":  "SELECT AVG(amount) FROM transactions",
+                                                                      "answer":  "Your average transaction size is ₹3,890.81.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 3890.80625 want 3890.81"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-count-swiggy",
+                                                                      "question":  "how many separate payments did I make to Swiggy",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  3,
+                                                                      "actualValue":  3,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Swiggy",
+                                                                                                "Blinkit",
+                                                                                                "Zomato",
+                                                                                                "Bigbasket",
+                                                                                                "FLIPKART",
+                                                                                                "Uber India",
+                                                                                                "Myntra",
+                                                                                                "MakeMyTrip",
+                                                                                                "Rahul K",
+                                                                                                "BOOKMYSHOW"
+                                                                                            ],
+                                                                      "sql":  "SELECT count(*) FROM transactions WHERE merchant ILIKE \u0027Swiggy\u0027 AND transaction_type ILIKE \u0027DEBIT\u0027",
+                                                                      "answer":  "You made 3 separate payments to Swiggy.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 3 want 3"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-utility-bills",
+                                                                      "question":  "what do my phone and electricity bills add up to",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  3339,
+                                                                      "actualValue":  3339,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "BESCOM",
+                                                                                                "Airtel",
+                                                                                                "Rahul K",
+                                                                                                "Priya Sharma",
+                                                                                                "Suresh Kumar",
+                                                                                                "Blinkit",
+                                                                                                "Amazon",
+                                                                                                "FLIPKART",
+                                                                                                "Bigbasket",
+                                                                                                "Uber"
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE category ILIKE \u0027Bills \u0026 Utilities\u0027 OR merchant ILIKE ANY (ARRAY[\u0027BESCOM\u0027, \u0027Airtel\u0027]) OR raw_text ILIKE \u0027%phone%\u0027 OR raw_text ILIKE \u0027%electricity%\u0027",
+                                                                      "answer":  "Your phone and electricity bills add up to a total of ₹3,339.00.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 3339 want 3339"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-online-shopping",
+                                                                      "question":  "how much have I put into online shopping sites",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  4697,
+                                                                      "actualValue":  4697,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Amazon",
+                                                                                                "Myntra",
+                                                                                                "FLIPKART",
+                                                                                                "Bigbasket",
+                                                                                                "Priya Sharma",
+                                                                                                "Rahul K",
+                                                                                                "Zomato",
+                                                                                                "IRCTC",
+                                                                                                "Blinkit",
+                                                                                                "Suresh Kumar"
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Amazon\u0027, \u0027Myntra\u0027, \u0027FLIPKART\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                                                      "answer":  "You have put a total of ₹4697.00 into online shopping sites.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 4697 want 4697"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-largest-single",
+                                                                      "question":  "which single payment was the largest one I have made",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  22000,
+                                                                      "actualValue":  22000,
+                                                                      "resolution":  null,
+                                                                      "surfacedMerchants":  [
+
+                                                                                            ],
+                                                                      "sql":  "SELECT amount FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 ORDER BY amount DESC LIMIT 1",
+                                                                      "answer":  "The largest single payment you made was ₹22,000.00.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 22000 want 22000"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-getting-around",
+                                                                      "question":  "what did I spend getting around the city",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  false,
+                                                                      "expectedValue":  796,
+                                                                      "actualValue":  2796,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Uber",
+                                                                                                "Ola Cabs",
+                                                                                                "Uber India",
+                                                                                                "Rahul K",
+                                                                                                "MakeMyTrip",
+                                                                                                "Priya Sharma",
+                                                                                                "Myntra",
+                                                                                                "BESCOM",
+                                                                                                "Suresh Kumar",
+                                                                                                "Amazon"
+                                                                                            ],
+                                                                      "sql":  "SELECT SUM(amount) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND (category ILIKE \u0027Transport\u0027 OR merchant ILIKE ANY (ARRAY[\u0027Uber\u0027, \u0027Ola Cabs\u0027, \u0027Uber India\u0027]) OR raw_text ILIKE ANY (ARRAY[\u0027%cab%\u0027, \u0027%taxi%\u0027, \u0027%auto%\u0027, \u0027%ride%\u0027, \u0027%uber%\u0027, \u0027%ola%\u0027]))",
+                                                                      "answer":  "You spent ₹2796.00 getting around the city.",
+                                                                      "classes":  [
+                                                                                      "sql-overmatch"
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 2796 want 796"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-streaming-two",
+                                                                      "question":  "total spent on video and music streaming services",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  1067,
+                                                                      "actualValue":  1067,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Amazon",
+                                                                                                "Spotify",
+                                                                                                "Netflix",
+                                                                                                "Rahul K",
+                                                                                                "Hotstar",
+                                                                                                "Suresh Kumar",
+                                                                                                "Priya Sharma",
+                                                                                                "Myntra",
+                                                                                                "FLIPKART",
+                                                                                                "Bigbasket"
+                                                                                            ],
+                                                                      "sql":  "SELECT sum(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Spotify\u0027, \u0027Netflix\u0027, \u0027Hotstar\u0027]) AND transaction_type = \u0027DEBIT\u0027",
+                                                                      "answer":  "You spent a total of ₹1,067.00 on video and music streaming services.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 1067 want 1067"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-train-ticket",
+                                                                      "question":  "how much did my train ticket cost",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  false,
+                                                                      "expectedValue":  5600,
+                                                                      "actualValue":  null,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "IRCTC",
+                                                                                                "Rahul K",
+                                                                                                "Uber",
+                                                                                                "MakeMyTrip",
+                                                                                                "Ola Cabs",
+                                                                                                "Priya Sharma",
+                                                                                                "Suresh Kumar",
+                                                                                                "Uber India",
+                                                                                                "Myntra",
+                                                                                                "BESCOM"
+                                                                                            ],
+                                                                      "sql":  "SELECT SUM(amount) FROM transactions WHERE merchant ILIKE \u0027IRCTC\u0027 AND (raw_text ILIKE \u0027%train%\u0027 OR raw_text ILIKE \u0027%ticket%\u0027)",
+                                                                      "answer":  "No matching transactions were found.",
+                                                                      "classes":  [
+                                                                                      "sql-no-answer"
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got  want 5600"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-coffee-habit",
+                                                                      "question":  "roughly what do I pay for my coffee habit",
+                                                                      "expectedMethod":  "sql",
+                                                                      "routedTo":  "sql",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  true,
+                                                                      "expectedValue":  1645,
+                                                                      "actualValue":  1645,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Starbucks",
+                                                                                                "Blue Tokai Coffee",
+                                                                                                "Blue Tokai",
+                                                                                                "Amazon",
+                                                                                                "Blinkit",
+                                                                                                "Bigbasket",
+                                                                                                "Rahul K",
+                                                                                                "Myntra",
+                                                                                                "Priya Sharma",
+                                                                                                "BESCOM"
+                                                                                            ],
+                                                                      "sql":  "SELECT SUM(amount) FROM transactions WHERE merchant ILIKE ANY (ARRAY[\u0027Starbucks\u0027, \u0027Blue Tokai Coffee\u0027, \u0027Blue Tokai\u0027]) OR raw_text ILIKE \u0027%coffee%\u0027",
+                                                                      "answer":  "You spent a total of ₹1645.00 on your coffee habit.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route sql; agg got 1645 want 1645"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-semantic-landlord",
+                                                                      "question":  "find the payment I made to my landlord",
+                                                                      "expectedMethod":  "rag",
+                                                                      "routedTo":  "rag",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  null,
+                                                                      "expectedValue":  null,
+                                                                      "actualValue":  null,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Rahul K",
+                                                                                                "Suresh Kumar",
+                                                                                                "Starbucks",
+                                                                                                "Bigbasket",
+                                                                                                "Apollo Pharmacy"
+                                                                                            ],
+                                                                      "sql":  null,
+                                                                      "answer":  "You made a payment of ₹22,000.00 to your landlord, Suresh Kumar, via NEFT on October 11, 2026.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route rag"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-semantic-gadget",
+                                                                      "question":  "which purchase was for a gadget",
+                                                                      "expectedMethod":  "rag",
+                                                                      "routedTo":  "rag",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  null,
+                                                                      "expectedValue":  null,
+                                                                      "actualValue":  null,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Croma Electronics",
+                                                                                                "Amazon",
+                                                                                                "Amazon",
+                                                                                                "APOLLO PHARMACY",
+                                                                                                "Croma"
+                                                                                            ],
+                                                                      "sql":  null,
+                                                                      "answer":  "Your purchases for electronics/gadgets were made at Croma Electronics for ₹2,250.00 and at Croma for ₹4,599.00.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route rag"
+                                                                  },
+                                                                  {
+                                                                      "id":  "t-semantic-friend",
+                                                                      "question":  "show me the money a friend sent me",
+                                                                      "expectedMethod":  "rag",
+                                                                      "routedTo":  "rag",
+                                                                      "routingPass":  true,
+                                                                      "aggregation":  null,
+                                                                      "expectedValue":  null,
+                                                                      "actualValue":  null,
+                                                                      "resolution":  true,
+                                                                      "surfacedMerchants":  [
+                                                                                                "Priya Sharma",
+                                                                                                "Rahul K",
+                                                                                                "ACME TECHNOLOGIES PVT LTD",
+                                                                                                "Myntra",
+                                                                                                "Suresh Kumar"
+                                                                                            ],
+                                                                      "sql":  null,
+                                                                      "answer":  "Priya Sharma sent you ₹2,000.00 on 22-Sep-26.",
+                                                                      "classes":  [
+
+                                                                                  ],
+                                                                      "detail":  "route rag"
+                                                                  }
+                                                              ]
+                                                          ],
+                                               "aggregate":  {
+                                                                 "routing":  {
+                                                                                 "mean":  96.6,
+                                                                                 "min":  93.3,
+                                                                                 "max":  100,
+                                                                                 "runs":  2
+                                                                             },
+                                                                 "aggregation":  {
+                                                                                     "mean":  75,
+                                                                                     "min":  75,
+                                                                                     "max":  75,
+                                                                                     "runs":  2
+                                                                                 },
+                                                                 "resolution":  {
+                                                                                    "mean":  100,
+                                                                                    "min":  100,
+                                                                                    "max":  100,
+                                                                                    "runs":  2
+                                                                                }
+                                                             },
+                                               "unstableCases":  {
+                                                                     "id":  "t-largest-single",
+                                                                     "verdicts":  [
+                                                                                      "False",
+                                                                                      "True"
+                                                                                  ],
+                                                                     "distinctOutcomes":  [
+                                                                                              "route rag; agg got  want 22000",
+                                                                                              "route sql; agg got 22000 want 22000"
+                                                                                          ]
+                                                                 },
+                                               "taxonomy":  {
+                                                                "sql-no-answer":  {
+                                                                                      "occurrences":  2,
+                                                                                      "perRunAverage":  1,
+                                                                                      "examples":  [
+                                                                                                       "t-largest-single: route rag; agg got  want 22000",
+                                                                                                       "t-train-ticket: route sql; agg got  want 5600"
+                                                                                                   ]
+                                                                                  },
+                                                                "sql-undermatch":  {
+                                                                                       "occurrences":  2,
+                                                                                       "perRunAverage":  1,
+                                                                                       "examples":  [
+                                                                                                        "t-average-size: route sql; agg got 2131.11805555556 want 3890.81",
+                                                                                                        "t-eating-out: route sql; agg got 2272 want 3597"
+                                                                                                    ]
+                                                                                   },
+                                                                "sql-overmatch":  {
+                                                                                      "occurrences":  2,
+                                                                                      "perRunAverage":  1,
+                                                                                      "examples":  [
+                                                                                                       "t-getting-around: route sql; agg got 2796 want 796"
+                                                                                                   ]
+                                                                                  },
+                                                                "routing-error":  {
+                                                                                      "occurrences":  1,
+                                                                                      "perRunAverage":  0.5,
+                                                                                      "examples":  [
+                                                                                                       "t-largest-single: route rag; agg got  want 22000"
+                                                                                                   ]
+                                                                                  }
+                                                            }
+                                           }
+                              }
+                },
+    "runFinished":  "2026-10-23T14:54:57.0193549+05:30",
+    "durationMinutes":  11.1
+}

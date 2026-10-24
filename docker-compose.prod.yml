@@ -1,0 +1,297 @@
+# Production stack: the whole platform on one host, built from source.
+#
+# Separate from docker-compose.yml, which stays as it is - that file runs ONLY the
+# infrastructure, so services can be started from an IDE against it. This one runs everything
+# in containers and publishes nothing except the BFF.
+#
+#   docker compose -f docker-compose.prod.yml --env-file .env up -d --build
+#
+# Target is a single Oracle Cloud ARM VM. Every image below is built from an arm64-capable
+# base (eclipse-temurin) or pulled as a multi-arch image (confluentinc, pgvector), so the same
+# file builds natively on the VM. Memory budget at the limits set here:
+#   8 services x 320m = 2560m,  kafka 512m,  zookeeper 256m,  postgres 256m  =  ~3.6GB
+# which fits 4GB with little to spare. Measured idle footprint is ~1.7GB across all eleven
+# containers, so these limits are a ceiling rather than the usage. Shrink them only against a
+# fresh measurement: a JVM whose cap drops below its live set gets OOM-killed, not slowed down.
+
+name: spendsense
+
+x-service-defaults: &service-defaults
+  restart: unless-stopped
+  networks: [spendsense]
+  # Hard cap per JVM. The containers size their heaps from this via -XX:MaxRAMPercentage, so
+  # changing it here changes the heap too - they cannot drift apart.
+  mem_limit: 320m
+  environment: &service-env
+    SPRING_PROFILES_ACTIVE: prod
+    KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    POSTGRES_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+    POSTGRES_USER: ${POSTGRES_USER}
+    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    GEMINI_API_KEY: ${GEMINI_API_KEY}
+    GEMINI_MODEL: ${GEMINI_MODEL}
+
+x-healthcheck-defaults: &java-healthcheck
+  interval: 10s
+  timeout: 5s
+  retries: 30
+  # A Spring Boot service on a shared ARM core takes a while to come up. Failures inside this
+  # window do not count against `retries`, so a slow start is not reported as a sick container.
+  start_period: 90s
+
+services:
+  # ------------------------------------------------------------- infrastructure
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    restart: unless-stopped
+    networks: [spendsense]
+    mem_limit: 256m
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      # cp images read the heap size from this variable for Zookeeper too.
+      KAFKA_HEAP_OPTS: -Xmx128m -Xms64m
+    healthcheck:
+      # No nc or curl in this image, but bash is there and /dev/tcp needs neither.
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/2181'"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    restart: unless-stopped
+    networks: [spendsense]
+    mem_limit: 512m
+    depends_on:
+      zookeeper:
+        # Waiting for Zookeeper to be HEALTHY, not merely started. Kafka loses a race against a
+        # still-booting Zookeeper and exits(1); the dev stack needs a manual
+        # `docker compose restart kafka` on most cold starts because of exactly this.
+        condition: service_healthy
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      # Advertised as the container name, not localhost: nothing outside this network talks to
+      # Kafka, and advertising localhost would make every client resolve itself.
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_HEAP_OPTS: -Xmx256m -Xms128m
+    healthcheck:
+      test: ["CMD", "kafka-topics", "--bootstrap-server", "localhost:9092", "--list"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
+    volumes:
+      - kafkadata:/var/lib/kafka/data
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    networks: [spendsense]
+    mem_limit: 256m
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdataprod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 15s
+
+  # ------------------------------------------------------------------ pipeline
+
+  # storage-service owns the schema and runs schema.sql on start, so everything that reads the
+  # database waits for it to be healthy rather than racing a table that does not exist yet.
+  storage-service:
+    <<: *service-defaults
+    build:
+      context: .
+      dockerfile: storage-service/Dockerfile
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      <<: *java-healthcheck
+      test: ["CMD", "curl", "-fsS", "http://localhost:8083/api/health"]
+
+  ingestion-service:
+    <<: *service-defaults
+    build:
+      context: .
+      dockerfile: ingestion-service/Dockerfile
+    environment:
+      <<: *service-env
+      INGESTION_API_KEY: ${INGESTION_API_KEY}
+    depends_on:
+      kafka:
+        condition: service_healthy
+    healthcheck:
+      <<: *java-healthcheck
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/api/health"]
+
+  extraction-service:
+    <<: *service-defaults
+    build:
+      context: .
+      dockerfile: extraction-service/Dockerfile
+    depends_on:
+      kafka:
+        condition: service_healthy
+    healthcheck:
+      <<: *java-healthcheck
+      test: ["CMD", "curl", "-fsS", "http://localhost:8081/api/health"]
+
+  categorization-service:
+    <<: *service-defaults
+    build:
+      context: .
+      dockerfile: categorization-service/Dockerfile
+    environment:
+      <<: *service-env
+      REVIEW_THRESHOLD: ${REVIEW_THRESHOLD}
+    depends_on:
+      kafka:
+        condition: service_healthy
+      storage-service:
+        condition: service_healthy
+    healthcheck:
+      <<: *java-healthcheck
+      test: ["CMD", "curl", "-fsS", "http://localhost:8082/api/health"]
+
+  anomaly-service:
+    <<: *service-defaults
+    build:
+      context: .
+      dockerfile: anomaly-service/Dockerfile
+    environment:
+      <<: *service-env
+      ANOMALY_MIN_HISTORY: ${ANOMALY_MIN_HISTORY}
+    depends_on:
+      kafka:
+        condition: service_healthy
+      storage-service:
+        condition: service_healthy
+    healthcheck:
+      <<: *java-healthcheck
+      test: ["CMD", "curl", "-fsS", "http://localhost:8084/api/health"]
+
+  # -------------------------------------------------------------------- serving
+
+  query-service:
+    <<: *service-defaults
+    build:
+      context: .
+      dockerfile: query-service/Dockerfile
+    environment:
+      <<: *service-env
+      RAG_TOP_K: ${RAG_TOP_K}
+      MERCHANT_TOP_K: ${MERCHANT_TOP_K}
+    depends_on:
+      storage-service:
+        condition: service_healthy
+    healthcheck:
+      <<: *java-healthcheck
+      test: ["CMD", "curl", "-fsS", "http://localhost:8085/api/health"]
+
+  insights-service:
+    <<: *service-defaults
+    build:
+      context: .
+      dockerfile: insights-service/Dockerfile
+    environment:
+      <<: *service-env
+      INSIGHTS_CRON: ${INSIGHTS_CRON}
+      INSIGHTS_PERIOD_DAYS: ${INSIGHTS_PERIOD_DAYS}
+      INSIGHTS_MIN_OCCURRENCES: ${INSIGHTS_MIN_OCCURRENCES}
+    depends_on:
+      storage-service:
+        condition: service_healthy
+    healthcheck:
+      <<: *java-healthcheck
+      test: ["CMD", "curl", "-fsS", "http://localhost:8086/api/health"]
+
+  # Not published. Reachable only through Caddy, like everything else.
+  dashboard-service:
+    <<: *service-defaults
+    build:
+      context: .
+      dockerfile: dashboard-service/Dockerfile
+    environment:
+      <<: *service-env
+      DASHBOARD_CORS_ALLOWED_ORIGINS: ${DASHBOARD_CORS_ALLOWED_ORIGINS}
+      DASHBOARD_HEALTH_TIMEOUT_MS: ${DASHBOARD_HEALTH_TIMEOUT_MS}
+      # Container hostnames rather than localhost. Inside a container localhost is the
+      # container itself, so every one of these would otherwise point at the BFF.
+      INGESTION_SERVICE_URL: http://ingestion-service:8080
+      EXTRACTION_SERVICE_URL: http://extraction-service:8081
+      CATEGORIZATION_SERVICE_URL: http://categorization-service:8082
+      STORAGE_SERVICE_URL: http://storage-service:8083
+      ANOMALY_SERVICE_URL: http://anomaly-service:8084
+      QUERY_SERVICE_URL: http://query-service:8085
+      INSIGHTS_SERVICE_URL: http://insights-service:8086
+    depends_on:
+      storage-service:
+        condition: service_healthy
+    healthcheck:
+      <<: *java-healthcheck
+      test: ["CMD", "curl", "-fsS", "http://localhost:8087/api/health"]
+
+  # --------------------------------------------------------------- the inlet
+
+  # The ONLY container with a published port. Two services share one hostname, split by path:
+  # the SMS webhook reaches ingestion-service, everything else reaches the BFF. One origin for
+  # the browser, one certificate to renew, one port open on the host.
+  caddy:
+    image: caddy:2.8-alpine
+    restart: unless-stopped
+    networks: [spendsense]
+    mem_limit: 64m
+    ports:
+      - "80:80"
+      - "443:443"
+      # HTTP/3. Harmless if unused, and it has to be published here or not at all.
+      - "443:443/udp"
+    environment:
+      CADDY_DOMAIN: ${CADDY_DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # Certificates and account keys live here. Named volumes, because Let's Encrypt rate
+      # limits per domain per week - losing /data on a recreate means re-issuing every time,
+      # and a few redeploys in one day is enough to get the domain refused.
+      - caddydata:/data
+      - caddyconfig:/config
+    depends_on:
+      dashboard-service:
+        condition: service_healthy
+      ingestion-service:
+        condition: service_healthy
+    healthcheck:
+      # Through the proxy to the BFF's own health endpoint, so this reports the path a real
+      # request takes rather than just whether Caddy is listening. wget, because the alpine
+      # image has busybox and no curl.
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+networks:
+  spendsense:
+    driver: bridge
+
+volumes:
+  pgdataprod:
+  kafkadata:
+  caddydata:
+  caddyconfig:

@@ -1,0 +1,354 @@
+{
+  "set": "test",
+  "description": "HELD-OUT extraction cases. Written after the extraction prompt was frozen, from bank SMS templates that do not appear in the dev set. No failure in this file has ever been used to change a prompt, and none may be.",
+  "coverage": "Thirteen banks absent from dev entirely (Bank of Baroda, PNB, Canara, Union Bank, IndusInd, Yes Bank, IDFC FIRST, Federal Bank, RBL, AU Small Finance, Bank of India, Indian Bank, Central Bank) plus the five dev banks in templates they also send but which dev does not cover - HDFC's 'Sent Rs.X From ... To ...' UPI wording, SBI's 'Dear UPI user A/C X1234 debited by 240.0' wording, ICICI's ATM withdrawal and Axis's 'Thank you for using Debit Card' wording. Date formats include two not in dev: DD-MM-YYYY and DD/MM/YYYY with a four-digit year.",
+  "fields": "amount, merchant, transactionType, transactionDate, accountLast4 are scored independently. 'merchant' is a list of acceptable spellings, compared case- and punctuation-insensitively; an empty string in that list means 'no merchant is the right answer', for the banks whose templates genuinely do not name one. expected=null means the message is not a transaction.",
+  "cases": [
+    {
+      "id": "t-hdfc-upi-sent-zepto",
+      "bank": "HDFC",
+      "format": "UPI debit, 'Sent ... From ... To' wording",
+      "source": "HDFC Bank UPI debit alert template, the newer 'Sent Rs.X From HDFC Bank A/C *nnnn To MERCHANT On DD/MM/YY Ref' wording. Not represented in dev, which uses the older 'debited from A/c XX to VPA' form.",
+      "sms": "Sent Rs.150.00 From HDFC Bank A/C *1234 To ZEPTO On 02/10/26 Ref 526123456789 Not You? Call 18002586161/SMS BLOCK UPI to 7308080808",
+      "expected": { "amount": 150.00, "merchant": ["Zepto"], "transactionType": "DEBIT", "transactionDate": "2026-10-02", "accountLast4": "1234" }
+    },
+    {
+      "id": "t-sbi-upi-user-dominos",
+      "bank": "SBI",
+      "format": "UPI debit, 'Dear UPI user' wording",
+      "source": "SBI UPI debit alert, 'Dear UPI user A/C Xnnnn debited by 240.0 on date DDMonYY trf to MERCHANT refno' template. Dev uses SBI's 'Your a/c no. XXXXXXXXnnnn is debited by Rs.' form instead.",
+      "sms": "Dear UPI user A/C X8821 debited by 240.0 on date 03Oct26 trf to DOMINOS PIZZA refno 526234567890. If not u? call 1800111109. -SBI",
+      "expected": { "amount": 240.00, "merchant": ["Dominos", "Domino's", "Dominos Pizza", "Domino's Pizza"], "transactionType": "DEBIT", "transactionDate": "2026-10-03", "accountLast4": "8821" }
+    },
+    {
+      "id": "t-bob-upi-credit-ramesh",
+      "bank": "Bank of Baroda",
+      "format": "UPI credit from an individual",
+      "source": "Bank of Baroda UPI credit alert, 'Rs.X Credited to A/c ...nnnn thru UPI/ref by VPA handle' template.",
+      "sms": "Rs.1250.00 Credited to A/c ...8912 thru UPI/526345678901 by VPA ramesh@okhdfcbank. Total Bal:Rs.45670.20CR. -Bank of Baroda",
+      "expected": { "amount": 1250.00, "merchant": ["Ramesh"], "transactionType": "CREDIT", "transactionDate": null, "accountLast4": "8912" },
+      "note": "The template carries no transaction date at all, only a reference. The correct answer for transactionDate is null; inventing today's date is a failure."
+    },
+    {
+      "id": "t-pnb-upi-nykaa",
+      "bank": "Punjab National Bank",
+      "format": "UPI debit",
+      "source": "PNB debit alert, 'your A/c XXXXXXnnnn is debited with Rs.X on DD-MM-YY by UPI Ref No' template.",
+      "sms": "Dear Customer, your A/c XXXXXX4567 is debited with Rs.3,499.00 on 05-10-26 by UPI Ref No 526456789012 toward NYKAA. -PNB",
+      "expected": { "amount": 3499.00, "merchant": ["Nykaa"], "transactionType": "DEBIT", "transactionDate": "2026-10-05", "accountLast4": "4567" }
+    },
+    {
+      "id": "t-canara-debit-nomerchant",
+      "bank": "Canara Bank",
+      "format": "generic debit with no payee named",
+      "source": "Canara Bank debit alert, 'An amount of INR X has been DEBITED to your account XXXnnn on DD/MM/YYYY' template. Names no counterparty, which no dev case does.",
+      "sms": "An amount of INR 780.00 has been DEBITED to your account XXX234 on 06/10/2026. Total Avail.bal INR 23,450.00 -Canara Bank",
+      "expected": { "amount": 780.00, "merchant": [""], "transactionType": "DEBIT", "transactionDate": "2026-10-06", "accountLast4": "234" },
+      "note": "No merchant is named, so null is the only correct answer. A guessed merchant here is a hallucination, not a near miss."
+    },
+    {
+      "id": "t-union-amazonpay",
+      "bank": "Union Bank of India",
+      "format": "mobile-banking debit",
+      "source": "Union Bank of India debit alert, 'A/c *nnnn Debited for Rs:X on DD-MM-YYYY by Mob Bkg ref no ... toward MERCHANT' template.",
+      "sms": "Dear Customer, A/c *5678 Debited for Rs:899.00 on 07-10-2026 by Mob Bkg ref no 526567890123 toward AMAZON PAY. -Union Bank of India",
+      "expected": { "amount": 899.00, "merchant": ["Amazon Pay", "Amazon"], "transactionType": "DEBIT", "transactionDate": "2026-10-07", "accountLast4": "5678" }
+    },
+    {
+      "id": "t-indusind-swiggyinstamart",
+      "bank": "IndusInd",
+      "format": "UPI debit, merchant inside a slash-delimited reference",
+      "source": "IndusInd Bank debit alert, 'INR X debited from your IndusInd Bank A/c XXnnnn on DD-Mon-YY towards UPI/MERCHANT/ref' template. The merchant is embedded in the reference string rather than written as a word.",
+      "sms": "INR 2,340.00 debited from your IndusInd Bank A/c XX3344 on 08-Oct-26 towards UPI/SWIGGYINSTAMART/526678901234. Bal: INR 18,220.00",
+      "expected": { "amount": 2340.00, "merchant": ["Swiggy Instamart", "Swiggyinstamart", "Swiggy"], "transactionType": "DEBIT", "transactionDate": "2026-10-08", "accountLast4": "3344" }
+    },
+    {
+      "id": "t-yes-ccd",
+      "bank": "Yes Bank",
+      "format": "UPI debit",
+      "source": "YES BANK debit alert, 'Your YES BANK A/c no. XXXXnnnn has been debited with INR X on DD-Mon-YY for UPI txn to MERCHANT' template.",
+      "sms": "Your YES BANK A/c no. XXXX2211 has been debited with INR 560.00 on 09-Oct-26 for UPI txn to CAFE COFFEE DAY. Ref 526789012345",
+      "expected": { "amount": 560.00, "merchant": ["Cafe Coffee Day", "CCD"], "transactionType": "DEBIT", "transactionDate": "2026-10-09", "accountLast4": "2211" }
+    },
+    {
+      "id": "t-idfc-decathlon",
+      "bank": "IDFC FIRST",
+      "format": "card spend",
+      "source": "IDFC FIRST Bank debit alert, 'Rs.X debited from IDFC FIRST Bank A/c XXXXXXnnnn on DD-Mon-YYYY at MERCHANT' template.",
+      "sms": "Rs.4,999.00 debited from IDFC FIRST Bank A/c XXXXXX7788 on 10-Oct-2026 at DECATHLON. Ref:526890123456",
+      "expected": { "amount": 4999.00, "merchant": ["Decathlon"], "transactionType": "DEBIT", "transactionDate": "2026-10-10", "accountLast4": "7788" }
+    },
+    {
+      "id": "t-federal-rapido",
+      "bank": "Federal Bank",
+      "format": "UPI debit",
+      "source": "Federal Bank debit alert, 'Rs X debited from your Federal Bank A/c XXnnnn towards UPI to MERCHANT on DD-MM-YY' template.",
+      "sms": "Rs 325.00 debited from your Federal Bank A/c XX9900 towards UPI to RAPIDO on 11-10-26. Ref 526901234567",
+      "expected": { "amount": 325.00, "merchant": ["Rapido"], "transactionType": "DEBIT", "transactionDate": "2026-10-11", "accountLast4": "9900" }
+    },
+    {
+      "id": "t-rbl-card-lenskart",
+      "bank": "RBL",
+      "format": "credit card spend",
+      "source": "RBL Bank credit card alert, 'Your RBL Bank Credit Card XXnnnn has been used for Rs.X at MERCHANT on DD-Mon-YY' template.",
+      "sms": "Your RBL Bank Credit Card XX5566 has been used for Rs.1,799.00 at LENSKART on 12-Oct-26.",
+      "expected": { "amount": 1799.00, "merchant": ["Lenskart"], "transactionType": "DEBIT", "transactionDate": "2026-10-12", "accountLast4": "5566" }
+    },
+    {
+      "id": "t-au-neft-salary",
+      "bank": "AU Small Finance",
+      "format": "NEFT salary credit",
+      "source": "AU Small Finance Bank credit alert, 'Rs.X credited to your AU Bank A/c XXXXnnnn on DD-Mon-YY via NEFT from PAYER' template.",
+      "sms": "Rs.12,500.00 credited to your AU Bank A/c XXXX1199 on 13-Oct-26 via NEFT from NOVA SOFTWARE PVT LTD. Ref N26101300123",
+      "expected": { "amount": 12500.00, "merchant": ["Nova Software", "Nova Software Pvt Ltd", "Nova"], "transactionType": "CREDIT", "transactionDate": "2026-10-13", "accountLast4": "1199" }
+    },
+    {
+      "id": "t-boi-licious",
+      "bank": "Bank of India",
+      "format": "UPI debit, payee phrased as a credited account",
+      "source": "Bank of India debit alert, 'Your A/c XXnnnn is debited by Rs.X on DD-MM-YY and A/c of MERCHANT is credited' template.",
+      "sms": "Your A/c XX4455 is debited by Rs.670.00 on 14-10-26 and A/c of LICIOUS is credited. Ref 527012345678 -Bank of India",
+      "expected": { "amount": 670.00, "merchant": ["Licious"], "transactionType": "DEBIT", "transactionDate": "2026-10-14", "accountLast4": "4455" }
+    },
+    {
+      "id": "t-indianbank-urbancompany",
+      "bank": "Indian Bank",
+      "format": "UPI debit with abbreviated wording",
+      "source": "Indian Bank debit alert, 'INR X debited frm A/c XXnnnn on DD-MM-YY to VPA handle Ref' template - note the truncated 'frm'.",
+      "sms": "Dear Customer, INR 1,100.00 debited frm A/c XX6677 on 15-10-26 to VPA urbancompany@ybl Ref 527123456789 -Indian Bank",
+      "expected": { "amount": 1100.00, "merchant": ["Urban Company", "UrbanCompany", "Urban Clap"], "transactionType": "DEBIT", "transactionDate": "2026-10-15", "accountLast4": "6677" }
+    },
+    {
+      "id": "t-central-atm",
+      "bank": "Central Bank",
+      "format": "ATM cash withdrawal",
+      "source": "Central Bank of India ATM alert, 'Rs X withdrawn from A/c XXnnnn at ATM on DD-MM-YY' template. A cash withdrawal has no payee.",
+      "sms": "Rs 2,250.00 withdrawn from A/c XX8899 at ATM on 16-10-26. Avbl Bal Rs 31,775.00 -Central Bank of India",
+      "expected": { "amount": 2250.00, "merchant": ["", "ATM", "ATM Withdrawal", "Cash Withdrawal"], "transactionType": "DEBIT", "transactionDate": "2026-10-16", "accountLast4": "8899" },
+      "note": "Either null or a literal description of the withdrawal is acceptable; a named shop is not."
+    },
+    {
+      "id": "t-icici-atm-withdrawal",
+      "bank": "ICICI",
+      "format": "ATM cash withdrawal",
+      "source": "ICICI Bank ATM alert, 'Acct XXnnnn is debited with INR X on DD-Mon-YY. Info: ATM-CASH WDL' template. Dev covers ICICI's UPI and card templates, not this one.",
+      "sms": "Acct XX5678 is debited with INR 5,000.00 on 17-Oct-26. Info: ATM-CASH WDL. Available Balance is INR 26,410.00",
+      "expected": { "amount": 5000.00, "merchant": ["", "ATM", "ATM Withdrawal", "Cash Withdrawal", "ATM Cash WDL"], "transactionType": "DEBIT", "transactionDate": "2026-10-17", "accountLast4": "5678" }
+    },
+    {
+      "id": "t-axis-debitcard-reliance",
+      "bank": "Axis",
+      "format": "debit card spend, 'Thank you for using' wording",
+      "source": "Axis Bank card alert, 'Thank you for using Debit Card no. XXnnnn for INR X at MERCHANT on DD-MM-YY' template. Dev uses Axis's 'Spent Card no. XX INR' form.",
+      "sms": "Thank you for using Axis Bank Debit Card no. XX7001 for INR 2,875.50 at RELIANCE SMART on 18-10-26. Call 18004195959 if not you.",
+      "expected": { "amount": 2875.50, "merchant": ["Reliance Smart", "Reliance"], "transactionType": "DEBIT", "transactionDate": "2026-10-18", "accountLast4": "7001" }
+    },
+    {
+      "id": "t-kotak-imps-credit",
+      "bank": "Kotak",
+      "format": "IMPS credit from an individual",
+      "source": "Kotak Mahindra Bank credit alert, 'Received Rs.X in your Kotak Bank AC Xnnnn from PAYER on DD-MM-YY via IMPS' template.",
+      "sms": "Received Rs.3,000.00 in your Kotak Bank AC X7788 from MEERA IYER on 19-10-26 via IMPS Ref 527234567890",
+      "expected": { "amount": 3000.00, "merchant": ["Meera Iyer", "Meera"], "transactionType": "CREDIT", "transactionDate": "2026-10-19", "accountLast4": "7788" }
+    },
+    {
+      "id": "t-hdfc-emi-autodebit",
+      "bank": "HDFC",
+      "format": "EMI auto-debit",
+      "source": "HDFC Bank standing-instruction alert, 'Rs.X has been debited from A/c XXnnnn towards EMI for Loan Account' template.",
+      "sms": "Rs.8,750.00 has been debited from A/c XX1234 on 20-10-26 towards EMI for Loan Account 50200012345678. -HDFC Bank",
+      "expected": { "amount": 8750.00, "merchant": ["HDFC Bank", "HDFC", "", "Loan EMI", "EMI"], "transactionType": "DEBIT", "transactionDate": "2026-10-20", "accountLast4": "1234" },
+      "note": "A loan EMI to the bank itself. Either the bank or no merchant is defensible; an unrelated shop is not."
+    },
+    {
+      "id": "t-sbi-card-bigbasket",
+      "bank": "SBI",
+      "format": "credit card spend, 'txn of Rs' wording",
+      "source": "SBI Card alert, 'Txn of Rs.X done on SBI Credit Card ending nnnn at MERCHANT on DD-Mon-YY' template.",
+      "sms": "Txn of Rs.1,340.00 done on SBI Credit Card ending 8899 at BIGBASKET on 21-Oct-26. Not you? Report at sbicard.com",
+      "expected": { "amount": 1340.00, "merchant": ["BigBasket", "Big Basket"], "transactionType": "DEBIT", "transactionDate": "2026-10-21", "accountLast4": "8899" }
+    },
+    {
+      "id": "t-pnb-utility-gas",
+      "bank": "Punjab National Bank",
+      "format": "biller auto-debit",
+      "source": "PNB biller alert, 'A/c XXXXXXnnnn debited Rs.X on DD-MM-YY towards BILLER bill payment' template.",
+      "sms": "Dear Customer, A/c XXXXXX4567 debited Rs.1,042.00 on 22-10-26 towards INDRAPRASTHA GAS bill payment. Ref 527345678901 -PNB",
+      "expected": { "amount": 1042.00, "merchant": ["Indraprastha Gas", "IGL"], "transactionType": "DEBIT", "transactionDate": "2026-10-22", "accountLast4": "4567" }
+    },
+    {
+      "id": "t-bob-card-pvr",
+      "bank": "Bank of Baroda",
+      "format": "card spend",
+      "source": "Bank of Baroda card alert, 'Your BOB Card XXnnnn used for Rs.X at MERCHANT on DD-MM-YYYY' template.",
+      "sms": "Your BOB Card XX2233 used for Rs.1,180.00 at PVR CINEMAS on 23-10-2026. Not you? Call 18001024455",
+      "expected": { "amount": 1180.00, "merchant": ["PVR", "PVR Cinemas", "PVR INOX"], "transactionType": "DEBIT", "transactionDate": "2026-10-23", "accountLast4": "2233" }
+    },
+    {
+      "id": "t-idfc-refund-credit",
+      "bank": "IDFC FIRST",
+      "format": "merchant refund credit",
+      "source": "IDFC FIRST Bank credit alert, 'Rs.X credited to your A/c XXXXXXnnnn on DD-Mon-YYYY as refund from MERCHANT' template.",
+      "sms": "Rs.2,199.00 credited to your IDFC FIRST Bank A/c XXXXXX7788 on 24-Oct-2026 as refund from AJIO. Ref:527456789012",
+      "expected": { "amount": 2199.00, "merchant": ["Ajio"], "transactionType": "CREDIT", "transactionDate": "2026-10-24", "accountLast4": "7788" }
+    },
+    {
+      "id": "t-canara-upi-zomato",
+      "bank": "Canara Bank",
+      "format": "UPI debit",
+      "source": "Canara Bank UPI alert, 'INR X debited from A/c XXXnnn on DD-MM-YYYY to VPA handle' template.",
+      "sms": "INR 486.00 debited from A/c XXX234 on 25-10-2026 to VPA zomato.payments@hdfcbank. UPI Ref 527567890123 -Canara Bank",
+      "expected": { "amount": 486.00, "merchant": ["Zomato"], "transactionType": "DEBIT", "transactionDate": "2026-10-25", "accountLast4": "234" }
+    },
+    {
+      "id": "t-yes-insurance-premium",
+      "bank": "Yes Bank",
+      "format": "insurance premium auto-debit",
+      "source": "YES BANK standing-instruction alert, 'A/c XXXXnnnn debited INR X on DD-Mon-YY towards premium for policy' template.",
+      "sms": "Your YES BANK A/c no. XXXX2211 debited INR 18,420.00 on 26-Oct-26 towards premium for HDFC LIFE policy 12345678.",
+      "expected": { "amount": 18420.00, "merchant": ["HDFC Life", "HDFC Life Insurance"], "transactionType": "DEBIT", "transactionDate": "2026-10-26", "accountLast4": "2211" }
+    },
+    {
+      "id": "t-indusind-fuel",
+      "bank": "IndusInd",
+      "format": "card spend at a fuel station",
+      "source": "IndusInd Bank card alert, 'INR X spent on IndusInd Bank Card XXnnnn at MERCHANT on DD-Mon-YY' template.",
+      "sms": "INR 3,000.00 spent on IndusInd Bank Card XX3344 at HP PETROL PUMP on 27-Oct-26. Avl limit INR 1,47,000.00",
+      "expected": { "amount": 3000.00, "merchant": ["HP", "HP Petrol Pump", "Hindustan Petroleum", "HPCL"], "transactionType": "DEBIT", "transactionDate": "2026-10-27", "accountLast4": "3344" }
+    },
+    {
+      "id": "t-union-upi-individual",
+      "bank": "Union Bank of India",
+      "format": "UPI debit to an individual",
+      "source": "Union Bank of India debit alert, 'A/c *nnnn Debited for Rs:X on DD-MM-YYYY by UPI ref no ... to VPA handle' template.",
+      "sms": "Dear Customer, A/c *5678 Debited for Rs:4,500.00 on 28-10-2026 by UPI ref no 527678901234 to arjun.menon@okicici. -Union Bank of India",
+      "expected": { "amount": 4500.00, "merchant": ["Arjun Menon", "Arjun"], "transactionType": "DEBIT", "transactionDate": "2026-10-28", "accountLast4": "5678" }
+    },
+    {
+      "id": "t-federal-large-amount",
+      "bank": "Federal Bank",
+      "format": "NEFT debit, lakh-scale amount",
+      "source": "Federal Bank debit alert, 'Rs X debited from your Federal Bank A/c XXnnnn by NEFT to PAYEE on DD-MM-YY' template. Chosen for the Indian digit grouping in the amount.",
+      "sms": "Rs 1,25,000.00 debited from your Federal Bank A/c XX9900 by NEFT to SUNRISE BUILDERS PVT LTD on 29-10-26. Ref 527789012345",
+      "expected": { "amount": 125000.00, "merchant": ["Sunrise Builders", "Sunrise Builders Pvt Ltd", "Sunrise"], "transactionType": "DEBIT", "transactionDate": "2026-10-29", "accountLast4": "9900" },
+      "note": "1,25,000 is one lakh twenty-five thousand under Indian grouping, not 125 thousand grouped wrongly. Reading it as 125000 is the only correct answer."
+    },
+    {
+      "id": "t-rbl-small-amount",
+      "bank": "RBL",
+      "format": "UPI debit, sub-rupee precision",
+      "source": "RBL Bank UPI alert, 'Rs.X debited from RBL Bank A/c XXnnnn to VPA handle on DD-MM-YY' template. Chosen for the paise.",
+      "sms": "Rs.9.50 debited from RBL Bank A/c XX5566 to irctcupi@sbi on 30-10-26. UPI Ref 527890123456",
+      "expected": { "amount": 9.50, "merchant": ["IRCTC"], "transactionType": "DEBIT", "transactionDate": "2026-10-30", "accountLast4": "5566" }
+    },
+    {
+      "id": "t-boi-dividend-credit",
+      "bank": "Bank of India",
+      "format": "dividend credit",
+      "source": "Bank of India credit alert, 'A/c XXnnnn credited Rs.X on DD-MM-YY by NACH from COMPANY DIVIDEND' template.",
+      "sms": "Your A/c XX4455 credited Rs.1,840.00 on 31-10-26 by NACH from INFOSYS LTD DIVIDEND. Ref 527901234567 -Bank of India",
+      "expected": { "amount": 1840.00, "merchant": ["Infosys", "Infosys Ltd"], "transactionType": "CREDIT", "transactionDate": "2026-10-31", "accountLast4": "4455" }
+    },
+    {
+      "id": "t-au-upi-swiggy",
+      "bank": "AU Small Finance",
+      "format": "UPI debit",
+      "source": "AU Small Finance Bank UPI alert, 'Rs.X debited from AU Bank A/c XXXXnnnn to VPA handle on DD-Mon-YY' template.",
+      "sms": "Rs.735.00 debited from your AU Bank A/c XXXX1199 to swiggy@axisbank on 01-Nov-26. Ref 528012345678",
+      "expected": { "amount": 735.00, "merchant": ["Swiggy"], "transactionType": "DEBIT", "transactionDate": "2026-11-01", "accountLast4": "1199" }
+    },
+    {
+      "id": "t-indianbank-ecom-flipkart",
+      "bank": "Indian Bank",
+      "format": "card spend, e-commerce",
+      "source": "Indian Bank card alert, 'INR X spent using Indian Bank Debit Card XXnnnn at MERCHANT on DD-MM-YY' template.",
+      "sms": "INR 6,490.00 spent using Indian Bank Debit Card XX6677 at FLIPKART INTERNET on 02-11-26. Bal INR 14,230.00 -Indian Bank",
+      "expected": { "amount": 6490.00, "merchant": ["Flipkart", "Flipkart Internet"], "transactionType": "DEBIT", "transactionDate": "2026-11-02", "accountLast4": "6677" }
+    },
+    {
+      "id": "t-nt-otp-bob",
+      "bank": "Bank of Baroda",
+      "format": "OTP",
+      "source": "Bank of Baroda OTP template.",
+      "sms": "441289 is the OTP for your transaction of Rs.3,499.00 at NYKAA using Bank of Baroda Debit Card. Valid for 5 min. Never share -BOB",
+      "expected": null,
+      "note": "The hardest non-transaction in this file: it names an amount, a merchant and a card. It is an authorisation code, and the matching debit alert arrives separately. Storing it would double-count the purchase."
+    },
+    {
+      "id": "t-nt-otp-pnb",
+      "bank": "Punjab National Bank",
+      "format": "OTP",
+      "source": "PNB NetBanking OTP template.",
+      "sms": "OTP for login to PNB ONE is 772301. Valid for 100 seconds. Do not share with anyone including bank staff. -PNB",
+      "expected": null
+    },
+    {
+      "id": "t-nt-promo-idfc",
+      "bank": "IDFC FIRST",
+      "format": "promotion",
+      "source": "IDFC FIRST Bank marketing SMS.",
+      "sms": "Earn up to 7.25% p.a. on your IDFC FIRST Bank Savings Account with monthly interest credit. Open in 3 min: idfcfirstbank.com/savings",
+      "expected": null
+    },
+    {
+      "id": "t-nt-promo-emi-offer",
+      "bank": "IndusInd",
+      "format": "promotion",
+      "source": "IndusInd Bank card marketing SMS offering to convert a spend into EMI.",
+      "sms": "Convert your recent IndusInd Bank Card spend of INR 2,340.00 into EasyEMI at 13% p.a. Reply EMI or visit indusind.com/easyemi. T&C apply",
+      "expected": null,
+      "note": "Refers to a real past transaction by amount, but is itself an offer. The debit alert for that spend already exists as a separate message."
+    },
+    {
+      "id": "t-nt-balance-union",
+      "bank": "Union Bank of India",
+      "format": "balance alert",
+      "source": "Union Bank of India daily balance SMS.",
+      "sms": "Dear Customer, the balance in your A/c *5678 as on 28-10-2026 is Rs:62,418.75. -Union Bank of India",
+      "expected": null
+    },
+    {
+      "id": "t-nt-balance-yes",
+      "bank": "Yes Bank",
+      "format": "balance alert, phrased as a low-balance warning",
+      "source": "YES BANK low-balance warning SMS.",
+      "sms": "Alert: the balance in your YES BANK A/c no. XXXX2211 has fallen below INR 10,000.00. Current balance INR 8,420.00. Maintain AMB to avoid charges.",
+      "expected": null
+    },
+    {
+      "id": "t-nt-delivery-bluedart",
+      "bank": "n/a",
+      "format": "delivery update",
+      "source": "Blue Dart courier SMS.",
+      "sms": "Your Blue Dart shipment 54321678901 from DECATHLON is out for delivery today. Track at bluedart.com. Value declared Rs.4,999.00",
+      "expected": null,
+      "note": "Names a merchant and a rupee value, and a matching card debit exists in this very file (t-idfc-decathlon). Storing it would double the spend."
+    },
+    {
+      "id": "t-nt-delivery-zomato",
+      "bank": "n/a",
+      "format": "delivery update",
+      "source": "Zomato order-status SMS.",
+      "sms": "Your Zomato order worth Rs 486 has been delivered. Rate your experience and get Rs 50 off your next order.",
+      "expected": null
+    },
+    {
+      "id": "t-nt-mandate-federal",
+      "bank": "Federal Bank",
+      "format": "upcoming mandate notice",
+      "source": "Federal Bank NACH mandate pre-debit notification, which banks are required to send before an auto-debit.",
+      "sms": "As per your e-mandate, INR 18,420.00 will be debited from your Federal Bank A/c XX9900 on 26-11-26 for HDFC LIFE. To cancel, call 18004251199",
+      "expected": null,
+      "note": "A pre-debit notice for a future date. The debit alert arrives on the day and is the transaction."
+    },
+    {
+      "id": "t-nt-cheque-return",
+      "bank": "Canara Bank",
+      "format": "cheque return advice",
+      "source": "Canara Bank cheque-return SMS.",
+      "sms": "Cheque no. 004512 for Rs.25,000.00 drawn on your A/c XXX234 has been RETURNED unpaid due to insufficient funds. Charges may apply. -Canara Bank",
+      "expected": null,
+      "note": "An amount and an account, but no money moved - the payment failed. Storing it would invent a debit that never happened."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+// Shared observability wiring: correlation-id propagation, the JSON log format, and the
+// health endpoint. This is a library consumed by the seven services, not a service itself,
+// so it produces a plain jar rather than an executable bootJar (which would also demand a
+// main class it does not have).
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+    archiveClassifier = ''
+}
+
+dependencies {
+    // Writes each event as a single JSON object. Spring Boot 3.3 has no built-in structured
+    // logging (that arrives in 3.4), and a hand-rolled logback pattern cannot escape a message
+    // containing a quote or newline without producing invalid JSON.
+    implementation 'net.logstash.logback:logstash-logback-encoder:8.0'
+}

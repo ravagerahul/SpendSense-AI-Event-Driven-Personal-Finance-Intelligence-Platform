@@ -1,0 +1,1455 @@
+{
+    "runStarted":  "2026-10-23T12:31:59.9491222+05:30",
+    "model":  null,
+    "runs":  1,
+    "sets":  "dev,test",
+    "suites":  "all",
+    "endpoints":  {
+                      "extract":  "http://localhost:8081/api/extract",
+                      "categorize":  "http://localhost:8082/api/categorize",
+                      "query":  "http://localhost:8085/api/query"
+                  },
+    "results":  {
+                    "extraction":  {
+                                       "dev":  {
+                                                   "caseCount":  44,
+                                                   "provenance":  "Written from documented HDFC, ICICI, SBI, Axis and Kotak SMS templates. CONTAMINATED: failures in this set were used to change the extraction prompt and the schema description, so its score is an upper bound. Score the held-out set in eval/cases/test for an honest figure.",
+                                                   "baseline":  {
+                                                                    "metrics":  {
+                                                                                    "fieldAccuracy":  95.9,
+                                                                                    "perField":  {
+                                                                                                     "amount":  100,
+                                                                                                     "merchant":  79.4,
+                                                                                                     "transactionType":  100,
+                                                                                                     "transactionDate":  100,
+                                                                                                     "accountLast4":  100
+                                                                                                 },
+                                                                                    "exactRecords":  79.4,
+                                                                                    "nonTransactionReject":  90
+                                                                                },
+                                                                    "detail":  [
+                                                                                   {
+                                                                                       "id":  "hdfc-upi-swiggy",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "swiggy 450 DEBIT 2026-09-12"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "hdfc-card-amazon",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "AMAZON 1899 DEBIT 2026-09-13"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "icici-upi-zomato",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "zomato 220 DEBIT 2026-09-14"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "axis-upi-bigbasket",
+                                                                                       "bank":  "Axis",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "bigbasket 3200 DEBIT 2026-09-15"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "sbi-upi-uber",
+                                                                                       "bank":  "SBI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "UBER INDIA 185 DEBIT 2026-09-16"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "kotak-upi-netflix",
+                                                                                       "bank":  "Kotak",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "netflix 649 DEBIT 2026-09-17"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "hdfc-upi-apollo",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "apollopharmacy 1250 DEBIT 2026-09-18"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "icici-bill-bescom",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  false,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  false,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+                                                                                                       "merchant"
+                                                                                                   ],
+                                                                                       "detail":  "merchant=\u0027\u0027 want one of [BESCOM]"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "axis-card-bookmyshow",
+                                                                                       "bank":  "Axis",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  false,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  false,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+                                                                                                       "merchant"
+                                                                                                   ],
+                                                                                       "detail":  "merchant=\u0027\u0027 want one of [BookMyShow, Book My Show]"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "sbi-upi-irctc",
+                                                                                       "bank":  "SBI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "IRCTC 5600 DEBIT 2026-09-21"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "icici-credit-priya",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "Priya Sharma 2000 CREDIT 2026-09-22"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "kotak-upi-rahul",
+                                                                                       "bank":  "Kotak",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "rahul k 500 DEBIT 2026-09-23"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "hdfc-upi-starbucks",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "starbucks 320 DEBIT 2026-09-24"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "icici-card-flipkart",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  false,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  false,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+                                                                                                       "merchant"
+                                                                                                   ],
+                                                                                       "detail":  "merchant=\u0027\u0027 want one of [Flipkart]"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "axis-upi-spotify",
+                                                                                       "bank":  "Axis",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "spotify 119 DEBIT 2026-09-26"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "sbi-refund-myntra",
+                                                                                       "bank":  "SBI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "MYNTRA 1500 CREDIT 2026-09-27"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "hdfc-upi-makemytrip-flight",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "makemytrip 8450 DEBIT 2026-09-28"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "icici-card-makemytrip-flight-2",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  false,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  false,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+                                                                                                       "merchant"
+                                                                                                   ],
+                                                                                       "detail":  "merchant=\u0027\u0027 want one of [MakeMyTrip, Make My Trip]"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "kotak-upi-bluetokai",
+                                                                                       "bank":  "Kotak",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "bluetokai 410 DEBIT 2026-09-30"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "hdfc-salary-acme",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "ACME TECHNOLOGIES PVT LTD 75000 CREDIT 2026-10-01"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "axis-upi-ola",
+                                                                                       "bank":  "Axis",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "olacabs 263 DEBIT 2026-10-02"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "sbi-upi-indianoil",
+                                                                                       "bank":  "SBI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "INDIAN OIL 2000 DEBIT 2026-10-03"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "icici-upi-pharmeasy",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "pharmeasy 735.5 DEBIT 2026-10-04"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "hdfc-bill-airtel",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  false,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  false,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+                                                                                                       "merchant"
+                                                                                                   ],
+                                                                                       "detail":  "merchant=\u0027AIRTEL postpaid bill payment\u0027 want one of [Airtel, Bharti Airtel]"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "kotak-upi-blinkit",
+                                                                                       "bank":  "Kotak",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "blinkit 1120 DEBIT 2026-10-06"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "axis-upi-hotstar",
+                                                                                       "bank":  "Axis",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "hotstar 299 DEBIT 2026-10-07"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "sbi-card-croma",
+                                                                                       "bank":  "SBI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "CROMA 4599 DEBIT 2026-10-08"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "hdfc-upi-swiggy-2",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "swiggy 612 DEBIT 2026-10-09"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "icici-upi-uber-2",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "uber 348 DEBIT 2026-10-10"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "kotak-neft-rent",
+                                                                                       "bank":  "Kotak",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  false,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  false,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+                                                                                                       "merchant"
+                                                                                                   ],
+                                                                                       "detail":  "merchant=\u0027Kotak\u0027 want one of [Suresh Kumar, Suresh]"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "axis-upi-bigbasket-2",
+                                                                                       "bank":  "Axis",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "bigbasket 1465.75 DEBIT 2026-10-12"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "sbi-upi-bluetokai-2",
+                                                                                       "bank":  "SBI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "BLUE TOKAI COFFEE 275 DEBIT 2026-10-13"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "hdfc-card-apollo-2",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  true,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "APOLLO PHARMACY 1875 DEBIT 2026-10-14"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "icici-interest-credit",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "transaction",
+                                                                                       "pass":  false,
+                                                                                       "fields":  {
+                                                                                                      "amount":  true,
+                                                                                                      "transactionDate":  true,
+                                                                                                      "merchant":  false,
+                                                                                                      "transactionType":  true,
+                                                                                                      "accountLast4":  true
+                                                                                                  },
+                                                                                       "classes":  [
+                                                                                                       "merchant"
+                                                                                                   ],
+                                                                                       "detail":  "merchant=\u0027quarterly savings account inter\u0027 want one of [ICICI Bank, ICICI]"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-otp-hdfc",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "correctly rejected"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-otp-icici-upi",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "correctly rejected"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-promo-icici",
+                                                                                       "bank":  "ICICI",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "correctly rejected"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-promo-axis-loan",
+                                                                                       "bank":  "Axis",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "correctly rejected"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-balance-axis",
+                                                                                       "bank":  "Axis",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "correctly rejected"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-balance-sbi",
+                                                                                       "bank":  "SBI",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "correctly rejected"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-delivery-amazon",
+                                                                                       "bank":  "n/a",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "correctly rejected"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-delivery-swiggy",
+                                                                                       "bank":  "n/a",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  false,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+                                                                                                       "false-transaction"
+                                                                                                   ],
+                                                                                       "detail":  "stored as merchant=\u0027Blue Tokai Coffee\u0027 amount=410"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-statement-reminder",
+                                                                                       "bank":  "HDFC",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "correctly rejected"
+                                                                                   },
+                                                                                   {
+                                                                                       "id":  "nt-mandate-notice",
+                                                                                       "bank":  "Kotak",
+                                                                                       "kind":  "non-transaction",
+                                                                                       "pass":  true,
+                                                                                       "fields":  null,
+                                                                                       "classes":  [
+
+                                                                                                   ],
+                                                                                       "detail":  "correctly rejected"
+                                                                                   }
+                                                                               ]
+                                                                },
+                                                   "runsCompleted":  1,
+                                                   "perRunMetrics":  [
+                                                                         {
+                                                                             "fieldAccuracy":  100,
+                                                                             "perField":  {
+                                                                                              "amount":  100,
+                                                                                              "merchant":  100,
+                                                                                              "transactionType":  100,
+                                                                                              "transactionDate":  100,
+                                                                                              "accountLast4":  100
+                                                                                          },
+                                                                             "exactRecords":  100,
+                                                                             "nonTransactionReject":  100
+                                                                         }
+                                                                     ],
+                                                   "detail":  [
+                                                                  [
+                                                                      {
+                                                                          "id":  "hdfc-upi-swiggy",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Swiggy 450.0 DEBIT 2026-09-12"
+                                                                      },
+                                                                      {
+                                                                          "id":  "hdfc-card-amazon",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Amazon 1899.0 DEBIT 2026-09-13"
+                                                                      },
+                                                                      {
+                                                                          "id":  "icici-upi-zomato",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Zomato 220.0 DEBIT 2026-09-14"
+                                                                      },
+                                                                      {
+                                                                          "id":  "axis-upi-bigbasket",
+                                                                          "bank":  "Axis",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Bigbasket 3200.0 DEBIT 2026-09-15"
+                                                                      },
+                                                                      {
+                                                                          "id":  "sbi-upi-uber",
+                                                                          "bank":  "SBI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "UBER INDIA 185.0 DEBIT 2026-09-16"
+                                                                      },
+                                                                      {
+                                                                          "id":  "kotak-upi-netflix",
+                                                                          "bank":  "Kotak",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Netflix 649.0 DEBIT 2026-09-17"
+                                                                      },
+                                                                      {
+                                                                          "id":  "hdfc-upi-apollo",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Apollo Pharmacy 1250.0 DEBIT 2026-09-18"
+                                                                      },
+                                                                      {
+                                                                          "id":  "icici-bill-bescom",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "BESCOM 2340.0 DEBIT 2026-09-19"
+                                                                      },
+                                                                      {
+                                                                          "id":  "axis-card-bookmyshow",
+                                                                          "bank":  "Axis",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "BOOKMYSHOW 799 DEBIT 2026-09-20"
+                                                                      },
+                                                                      {
+                                                                          "id":  "sbi-upi-irctc",
+                                                                          "bank":  "SBI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "IRCTC 5600.0 DEBIT 2026-09-21"
+                                                                      },
+                                                                      {
+                                                                          "id":  "icici-credit-priya",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Priya Sharma 2000.0 CREDIT 2026-09-22"
+                                                                      },
+                                                                      {
+                                                                          "id":  "kotak-upi-rahul",
+                                                                          "bank":  "Kotak",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Rahul K 500.0 DEBIT 2026-09-23"
+                                                                      },
+                                                                      {
+                                                                          "id":  "hdfc-upi-starbucks",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Starbucks 320.0 DEBIT 2026-09-24"
+                                                                      },
+                                                                      {
+                                                                          "id":  "icici-card-flipkart",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "FLIPKART 899.0 DEBIT 2026-09-25"
+                                                                      },
+                                                                      {
+                                                                          "id":  "axis-upi-spotify",
+                                                                          "bank":  "Axis",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Spotify 119.0 DEBIT 2026-09-26"
+                                                                      },
+                                                                      {
+                                                                          "id":  "sbi-refund-myntra",
+                                                                          "bank":  "SBI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Myntra 1500.0 CREDIT 2026-09-27"
+                                                                      },
+                                                                      {
+                                                                          "id":  "hdfc-upi-makemytrip-flight",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "MakeMyTrip 8450.0 DEBIT 2026-09-28"
+                                                                      },
+                                                                      {
+                                                                          "id":  "icici-card-makemytrip-flight-2",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "MakeMyTrip 6200.0 DEBIT 2026-09-29"
+                                                                      },
+                                                                      {
+                                                                          "id":  "kotak-upi-bluetokai",
+                                                                          "bank":  "Kotak",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Blue Tokai 410.0 DEBIT 2026-09-30"
+                                                                      },
+                                                                      {
+                                                                          "id":  "hdfc-salary-acme",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "ACME TECHNOLOGIES PVT LTD 75000.0 CREDIT 2026-10-01"
+                                                                      },
+                                                                      {
+                                                                          "id":  "axis-upi-ola",
+                                                                          "bank":  "Axis",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Olacabs 263.0 DEBIT 2026-10-02"
+                                                                      },
+                                                                      {
+                                                                          "id":  "sbi-upi-indianoil",
+                                                                          "bank":  "SBI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "INDIAN OIL 2000.0 DEBIT 2026-10-03"
+                                                                      },
+                                                                      {
+                                                                          "id":  "icici-upi-pharmeasy",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "PharmEasy 735.5 DEBIT 2026-10-04"
+                                                                      },
+                                                                      {
+                                                                          "id":  "hdfc-bill-airtel",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Airtel 999.0 DEBIT 2026-10-05"
+                                                                      },
+                                                                      {
+                                                                          "id":  "kotak-upi-blinkit",
+                                                                          "bank":  "Kotak",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Blinkit 1120.0 DEBIT 2026-10-06"
+                                                                      },
+                                                                      {
+                                                                          "id":  "axis-upi-hotstar",
+                                                                          "bank":  "Axis",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Hotstar 299.0 DEBIT 2026-10-07"
+                                                                      },
+                                                                      {
+                                                                          "id":  "sbi-card-croma",
+                                                                          "bank":  "SBI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Croma 4599.0 DEBIT 2026-10-08"
+                                                                      },
+                                                                      {
+                                                                          "id":  "hdfc-upi-swiggy-2",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Swiggy 612.0 DEBIT 2026-10-09"
+                                                                      },
+                                                                      {
+                                                                          "id":  "icici-upi-uber-2",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Uber 348.0 DEBIT 2026-10-10"
+                                                                      },
+                                                                      {
+                                                                          "id":  "kotak-neft-rent",
+                                                                          "bank":  "Kotak",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Suresh Kumar 22000.0 DEBIT 2026-10-11"
+                                                                      },
+                                                                      {
+                                                                          "id":  "axis-upi-bigbasket-2",
+                                                                          "bank":  "Axis",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "Bigbasket 1465.75 DEBIT 2026-10-12"
+                                                                      },
+                                                                      {
+                                                                          "id":  "sbi-upi-bluetokai-2",
+                                                                          "bank":  "SBI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "BLUE TOKAI COFFEE 275.0 DEBIT 2026-10-13"
+                                                                      },
+                                                                      {
+                                                                          "id":  "hdfc-card-apollo-2",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "APOLLO PHARMACY 1875.0 DEBIT 2026-10-14"
+                                                                      },
+                                                                      {
+                                                                          "id":  "icici-interest-credit",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  {
+                                                                                         "amount":  true,
+                                                                                         "transactionDate":  true,
+                                                                                         "merchant":  true,
+                                                                                         "transactionType":  true,
+                                                                                         "accountLast4":  true
+                                                                                     },
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "ICICI Bank 412.0 CREDIT 2026-10-15"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-otp-hdfc",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-otp-icici-upi",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-promo-icici",
+                                                                          "bank":  "ICICI",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-promo-axis-loan",
+                                                                          "bank":  "Axis",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-balance-axis",
+                                                                          "bank":  "Axis",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-balance-sbi",
+                                                                          "bank":  "SBI",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-delivery-amazon",
+                                                                          "bank":  "n/a",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-delivery-swiggy",
+                                                                          "bank":  "n/a",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-statement-reminder",
+                                                                          "bank":  "HDFC",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      },
+                                                                      {
+                                                                          "id":  "nt-mandate-notice",
+                                                                          "bank":  "Kotak",
+                                                                          "kind":  "non-transaction",
+                                                                          "pass":  true,
+                                                                          "fields":  null,
+                                                                          "classes":  [
+
+                                                                                      ],
+                                                                          "detail":  "correctly rejected"
+                                                                      }
+                                                                  ]
+                                                              ],
+                                                   "aggregate":  {
+                                                                     "fieldAccuracy":  {
+                                                                                           "mean":  100,
+                                                                                           "min":  100,
+                                                                                           "max":  100,
+                                                                                           "runs":  1
+                                                                                       },
+                                                                     "exactRecords":  {
+                                                                                          "mean":  100,
+                                                                                          "min":  100,
+                                                                                          "max":  100,
+                                                                                          "runs":  1
+                                                                                      },
+                                                                     "nonTransactionReject":  {
+                                                                                                  "mean":  100,
+                                                                                                  "min":  100,
+                                                                                                  "max":  100,
+                                                                                                  "runs":  1
+                                                                                              }
+                                                                 },
+                                                   "unstableCases":  null,
+                                                   "taxonomy":  {
+
+                                                                }
+                                               }
+                                   }
+                }
+}

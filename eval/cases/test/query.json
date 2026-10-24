@@ -1,0 +1,128 @@
+{
+  "set": "test",
+  "description": "HELD-OUT query cases. Fifteen questions in phrasings that have never been run against this system before and have never been used to change the router, the SQL prompt or the schema description.",
+  "heldOutNote": "These run against the same database as the dev questions, because a query eval needs data to query. What is held out is the QUESTION, not the data: the wording, the fuzzy term and the expected routing. Where the dev set asks 'how much did I spend on groceries', this one asks 'what did I shell out on groceries' and 'how much have I put into online shopping sites' - colloquial phrasings, concepts that cut across categories differently, and aggregates (AVG, COUNT over a filter) the dev set does not exercise.",
+  "groundTruthNote": "groundTruthSql is hand-written and run against the same database at eval time, so the expected figure comes from the data actually present. Each must return exactly one scalar.",
+  "cases": [
+    {
+      "id": "t-eating-out",
+      "question": "what did I shell out on eating out",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'DEBIT' AND (merchant ILIKE '%swiggy%' OR merchant ILIKE '%zomato%' OR merchant ILIKE '%blue tokai%' OR merchant ILIKE '%starbucks%' OR merchant ILIKE '%dominos%')",
+      "expectedMerchants": ["swiggy", "zomato"],
+      "note": "Colloquial phrasing of a concept that maps onto several merchants, none of which the question names."
+    },
+    {
+      "id": "t-sent-to-people",
+      "question": "add up everything I sent to individual people rather than to businesses",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'DEBIT' AND (merchant ILIKE '%rahul%' OR merchant ILIKE '%suresh%' OR merchant ILIKE '%priya%' OR merchant ILIKE '%arjun%' OR merchant ILIKE '%kavya%')",
+      "expectedMerchants": ["suresh", "rahul"],
+      "note": "A category of merchant rather than a category of spend. Nothing in the schema marks a merchant as a person."
+    },
+    {
+      "id": "t-money-in",
+      "question": "how much money came into my account altogether",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'CREDIT'",
+      "expectedMerchants": [],
+      "note": "Tests that direction is read from the question rather than defaulting to DEBIT."
+    },
+    {
+      "id": "t-average-size",
+      "question": "what is my average transaction size",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(ROUND(AVG(amount), 2), 0) FROM transactions",
+      "expectedMerchants": [],
+      "note": "AVG. The dev set never asks for one."
+    },
+    {
+      "id": "t-count-swiggy",
+      "question": "how many separate payments did I make to Swiggy",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COUNT(*) FROM transactions WHERE merchant ILIKE '%swiggy%'",
+      "expectedMerchants": ["swiggy"],
+      "note": "A count with a filter, rather than a count of everything."
+    },
+    {
+      "id": "t-utility-bills",
+      "question": "what do my phone and electricity bills add up to",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'DEBIT' AND (merchant ILIKE '%airtel%' OR merchant ILIKE '%bescom%' OR merchant ILIKE '%jio%' OR merchant ILIKE '%tata power%')",
+      "expectedMerchants": ["airtel", "bescom"],
+      "note": "Two concepts in one question, both inside Bills & Utilities but not the whole of it."
+    },
+    {
+      "id": "t-online-shopping",
+      "question": "how much have I put into online shopping sites",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'DEBIT' AND (merchant ILIKE '%amazon%' OR merchant ILIKE '%flipkart%' OR merchant ILIKE '%myntra%' OR merchant ILIKE '%ajio%' OR merchant ILIKE '%nykaa%')",
+      "expectedMerchants": ["amazon", "flipkart"],
+      "note": "Croma is a shop but not an online one, and the Myntra row is a CREDIT refund. Both are traps for a category-only answer."
+    },
+    {
+      "id": "t-largest-single",
+      "question": "which single payment was the largest one I have made",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(MAX(amount), 0) FROM transactions WHERE transaction_type = 'DEBIT'",
+      "expectedMerchants": [],
+      "note": "Phrased as 'which', which could pull it toward retrieval, but it wants a single figure."
+    },
+    {
+      "id": "t-getting-around",
+      "question": "what did I spend getting around the city",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'DEBIT' AND (merchant ILIKE '%uber%' OR merchant ILIKE '%ola%' OR merchant ILIKE '%rapido%')",
+      "expectedMerchants": ["uber", "ola"],
+      "note": "City travel, which excludes the train ticket and the flights that also sit in Transport and Travel. Note the database holds this merchant as both 'Uber' and 'Uber India'."
+    },
+    {
+      "id": "t-streaming-two",
+      "question": "total spent on video and music streaming services",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'DEBIT' AND (merchant ILIKE '%netflix%' OR merchant ILIKE '%spotify%' OR merchant ILIKE '%hotstar%')",
+      "expectedMerchants": ["netflix", "spotify"],
+      "note": "Same underlying rows as the dev streaming question, asked a different way."
+    },
+    {
+      "id": "t-train-ticket",
+      "question": "how much did my train ticket cost",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'DEBIT' AND merchant ILIKE '%irctc%'",
+      "expectedMerchants": ["irctc"],
+      "note": "The mirror of the dev flight question. The failure mode there was folding IRCTC into a flight total; here the right answer is IRCTC alone and MakeMyTrip must be left out."
+    },
+    {
+      "id": "t-coffee-habit",
+      "question": "roughly what do I pay for my coffee habit",
+      "expectedMethod": "sql",
+      "groundTruthSql": "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'DEBIT' AND (merchant ILIKE '%blue tokai%' OR merchant ILIKE '%starbucks%' OR merchant ILIKE '%coffee day%')",
+      "expectedMerchants": ["blue tokai", "starbucks"],
+      "note": "'Roughly' is hedged wording that could push the router toward retrieval; the question still wants a number."
+    },
+    {
+      "id": "t-semantic-landlord",
+      "question": "find the payment I made to my landlord",
+      "expectedMethod": "rag",
+      "groundTruthSql": null,
+      "expectedMerchants": ["suresh"],
+      "note": "Nothing in the data says 'landlord'. Only the embedding connects the word to a large recurring payment to a person."
+    },
+    {
+      "id": "t-semantic-gadget",
+      "question": "which purchase was for a gadget",
+      "expectedMethod": "rag",
+      "groundTruthSql": null,
+      "expectedMerchants": ["croma"],
+      "note": "'Gadget' names no category and no merchant."
+    },
+    {
+      "id": "t-semantic-friend",
+      "question": "show me the money a friend sent me",
+      "expectedMethod": "rag",
+      "groundTruthSql": null,
+      "expectedMerchants": ["priya"],
+      "note": "Wants the row, not a total."
+    }
+  ]
+}

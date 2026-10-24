@@ -1,0 +1,4 @@
+rootProject.name = 'spendsense-ai'
+include 'common', 'ingestion-service', 'extraction-service', 'storage-service',
+        'categorization-service', 'anomaly-service', 'query-service', 'insights-service',
+        'dashboard-service'

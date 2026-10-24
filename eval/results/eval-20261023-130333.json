@@ -1,0 +1,1416 @@
+{
+    "runStarted":  "2026-10-23T13:03:33.6720957+05:30",
+    "model":  null,
+    "runs":  1,
+    "sets":  "test",
+    "suites":  "extraction",
+    "endpoints":  {
+                      "extract":  "http://localhost:8081/api/extract",
+                      "categorize":  "http://localhost:8082/api/categorize",
+                      "query":  "http://localhost:8085/api/query"
+                  },
+    "results":  {
+                    "extraction":  {
+                                       "test":  {
+                                                    "caseCount":  42,
+                                                    "provenance":  "HELD-OUT extraction cases. Written after the extraction prompt was frozen, from bank SMS templates that do not appear in the dev set. No failure in this file has ever been used to change a prompt, and none may be.",
+                                                    "baseline":  {
+                                                                     "metrics":  {
+                                                                                     "fieldAccuracy":  82.5,
+                                                                                     "perField":  {
+                                                                                                      "amount":  87.5,
+                                                                                                      "merchant":  53.1,
+                                                                                                      "transactionType":  84.4,
+                                                                                                      "transactionDate":  93.8,
+                                                                                                      "accountLast4":  93.8
+                                                                                                  },
+                                                                                     "exactRecords":  37.5,
+                                                                                     "nonTransactionReject":  100
+                                                                                 },
+                                                                     "detail":  [
+                                                                                    {
+                                                                                        "id":  "t-hdfc-upi-sent-zepto",
+                                                                                        "bank":  "HDFC",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027HDFC\u0027 want one of [Zepto]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-sbi-upi-user-dominos",
+                                                                                        "bank":  "SBI",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "DOMINOS PIZZA 240 DEBIT 2026-10-03"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-bob-upi-credit-ramesh",
+                                                                                        "bank":  "Bank of Baroda",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "ramesh 1250 CREDIT "
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-pnb-upi-nykaa",
+                                                                                        "bank":  "Punjab National Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "NYKAA 3499 DEBIT 2026-10-05"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-canara-debit-nomerchant",
+                                                                                        "bank":  "Canara Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  false,
+                                                                                                       "transactionDate":  false,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  false,
+                                                                                                       "accountLast4":  false
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "missed-transaction"
+                                                                                                    ],
+                                                                                        "detail":  "classified as a non-transaction"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-union-amazonpay",
+                                                                                        "bank":  "Union Bank of India",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  false,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "amount"
+                                                                                                    ],
+                                                                                        "detail":  "amount= want 899.00"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-indusind-swiggyinstamart",
+                                                                                        "bank":  "IndusInd",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027\u0027 want one of [Swiggy Instamart, Swiggyinstamart, Swiggy]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-yes-ccd",
+                                                                                        "bank":  "Yes Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "CAFE COFFEE DAY 560 DEBIT 2026-10-09"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-idfc-decathlon",
+                                                                                        "bank":  "IDFC FIRST",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027IDFC FIRST\u0027 want one of [Decathlon]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-federal-rapido",
+                                                                                        "bank":  "Federal Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027\u0027 want one of [Rapido]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-rbl-card-lenskart",
+                                                                                        "bank":  "RBL",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  false,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "type"
+                                                                                                    ],
+                                                                                        "detail":  "type=CREDIT want DEBIT"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-au-neft-salary",
+                                                                                        "bank":  "AU Small Finance",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027your AU\u0027 want one of [Nova Software, Nova Software Pvt Ltd, Nova]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-boi-licious",
+                                                                                        "bank":  "Bank of India",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "LICIOUS 670 DEBIT 2026-10-14"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-indianbank-urbancompany",
+                                                                                        "bank":  "Indian Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "urbancompany 1100 DEBIT 2026-10-15"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-central-atm",
+                                                                                        "bank":  "Central Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "ATM 2250 DEBIT 2026-10-16"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-icici-atm-withdrawal",
+                                                                                        "bank":  "ICICI",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  false,
+                                                                                                       "transactionDate":  false,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  false,
+                                                                                                       "accountLast4":  false
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "missed-transaction"
+                                                                                                    ],
+                                                                                        "detail":  "classified as a non-transaction"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-axis-debitcard-reliance",
+                                                                                        "bank":  "Axis",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "RELIANCE SMART 2875.5 DEBIT 2026-10-18"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-kotak-imps-credit",
+                                                                                        "bank":  "Kotak",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "MEERA IYER 3000 CREDIT 2026-10-19"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-hdfc-emi-autodebit",
+                                                                                        "bank":  "HDFC",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant-hallucinated"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027EMI for Loan Account 5020001234\u0027 want one of [HDFC Bank, HDFC, , Loan EMI, EMI]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-sbi-card-bigbasket",
+                                                                                        "bank":  "SBI",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  false,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "type"
+                                                                                                    ],
+                                                                                        "detail":  "type=CREDIT want DEBIT"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-pnb-utility-gas",
+                                                                                        "bank":  "Punjab National Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027INDRAPRASTHA GAS bill payment\u0027 want one of [Indraprastha Gas, IGL]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-bob-card-pvr",
+                                                                                        "bank":  "Bank of Baroda",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  false,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "type"
+                                                                                                    ],
+                                                                                        "detail":  "type= want DEBIT"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-idfc-refund-credit",
+                                                                                        "bank":  "IDFC FIRST",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027your IDFC FIRST\u0027 want one of [Ajio]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-canara-upi-zomato",
+                                                                                        "bank":  "Canara Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027zomato payments\u0027 want one of [Zomato]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-yes-insurance-premium",
+                                                                                        "bank":  "Yes Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027premium for HDFC LIFE policy 12\u0027 want one of [HDFC Life, HDFC Life Insurance]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-indusind-fuel",
+                                                                                        "bank":  "IndusInd",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "HP PETROL PUMP 3000 DEBIT 2026-10-27"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-union-upi-individual",
+                                                                                        "bank":  "Union Bank of India",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  false,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "amount"
+                                                                                                    ],
+                                                                                        "detail":  "amount= want 4500.00"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-federal-large-amount",
+                                                                                        "bank":  "Federal Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027your Federal\u0027 want one of [Sunrise Builders, Sunrise Builders Pvt Ltd, Sunrise]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-rbl-small-amount",
+                                                                                        "bank":  "RBL",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027irctcupi\u0027 want one of [IRCTC]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-boi-dividend-credit",
+                                                                                        "bank":  "Bank of India",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  false,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  false,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+                                                                                                        "merchant"
+                                                                                                    ],
+                                                                                        "detail":  "merchant=\u0027INFOSYS LTD DIVIDEND\u0027 want one of [Infosys, Infosys Ltd]"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-au-upi-swiggy",
+                                                                                        "bank":  "AU Small Finance",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "swiggy 735 DEBIT 2026-11-01"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-indianbank-ecom-flipkart",
+                                                                                        "bank":  "Indian Bank",
+                                                                                        "kind":  "transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  {
+                                                                                                       "amount":  true,
+                                                                                                       "transactionDate":  true,
+                                                                                                       "merchant":  true,
+                                                                                                       "transactionType":  true,
+                                                                                                       "accountLast4":  true
+                                                                                                   },
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "FLIPKART INTERNET 6490 DEBIT 2026-11-02"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-otp-bob",
+                                                                                        "bank":  "Bank of Baroda",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-otp-pnb",
+                                                                                        "bank":  "Punjab National Bank",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-promo-idfc",
+                                                                                        "bank":  "IDFC FIRST",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-promo-emi-offer",
+                                                                                        "bank":  "IndusInd",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-balance-union",
+                                                                                        "bank":  "Union Bank of India",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-balance-yes",
+                                                                                        "bank":  "Yes Bank",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-delivery-bluedart",
+                                                                                        "bank":  "n/a",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-delivery-zomato",
+                                                                                        "bank":  "n/a",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-mandate-federal",
+                                                                                        "bank":  "Federal Bank",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "t-nt-cheque-return",
+                                                                                        "bank":  "Canara Bank",
+                                                                                        "kind":  "non-transaction",
+                                                                                        "pass":  true,
+                                                                                        "fields":  null,
+                                                                                        "classes":  [
+
+                                                                                                    ],
+                                                                                        "detail":  "correctly rejected"
+                                                                                    }
+                                                                                ]
+                                                                 },
+                                                    "runsCompleted":  1,
+                                                    "perRunMetrics":  [
+                                                                          {
+                                                                              "fieldAccuracy":  98.1,
+                                                                              "perField":  {
+                                                                                               "amount":  100,
+                                                                                               "merchant":  93.8,
+                                                                                               "transactionType":  100,
+                                                                                               "transactionDate":  96.9,
+                                                                                               "accountLast4":  100
+                                                                                           },
+                                                                              "exactRecords":  90.6,
+                                                                              "nonTransactionReject":  90
+                                                                          }
+                                                                      ],
+                                                    "detail":  [
+                                                                   [
+                                                                       {
+                                                                           "id":  "t-hdfc-upi-sent-zepto",
+                                                                           "bank":  "HDFC",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Zepto 150.0 DEBIT 2026-10-02"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-sbi-upi-user-dominos",
+                                                                           "bank":  "SBI",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "DOMINOS PIZZA 240.0 DEBIT 2026-10-03"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-bob-upi-credit-ramesh",
+                                                                           "bank":  "Bank of Baroda",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Ramesh 1250.0 CREDIT "
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-pnb-upi-nykaa",
+                                                                           "bank":  "Punjab National Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Nykaa 3499.0 DEBIT 2026-10-05"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-canara-debit-nomerchant",
+                                                                           "bank":  "Canara Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  " 780.0 DEBIT 2026-10-06"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-union-amazonpay",
+                                                                           "bank":  "Union Bank of India",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Amazon Pay 899.0 DEBIT 2026-10-07"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-indusind-swiggyinstamart",
+                                                                           "bank":  "IndusInd",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Swiggy Instamart 2340.0 DEBIT 2026-10-08"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-yes-ccd",
+                                                                           "bank":  "Yes Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "CAFE COFFEE DAY 560.0 DEBIT 2026-10-09"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-idfc-decathlon",
+                                                                           "bank":  "IDFC FIRST",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Decathlon 4999.0 DEBIT 2026-10-10"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-federal-rapido",
+                                                                           "bank":  "Federal Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Rapido 325.0 DEBIT 2026-10-11"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-rbl-card-lenskart",
+                                                                           "bank":  "RBL",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Lenskart 1799.0 DEBIT 2026-10-12"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-au-neft-salary",
+                                                                           "bank":  "AU Small Finance",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "NOVA SOFTWARE PVT LTD 12500.0 CREDIT 2026-10-13"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-boi-licious",
+                                                                           "bank":  "Bank of India",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Licious 670.0 DEBIT 2026-10-14"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-indianbank-urbancompany",
+                                                                           "bank":  "Indian Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  false,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  false,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+                                                                                           "date"
+                                                                                       ],
+                                                                           "detail":  "date=2025-10-15 want \u00272026-10-15\u0027"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-central-atm",
+                                                                           "bank":  "Central Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "ATM 2250.0 DEBIT 2026-10-16"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-icici-atm-withdrawal",
+                                                                           "bank":  "ICICI",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "ATM-CASH WDL 5000.0 DEBIT 2026-10-17"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-axis-debitcard-reliance",
+                                                                           "bank":  "Axis",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Reliance Smart 2875.5 DEBIT 2026-10-18"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-kotak-imps-credit",
+                                                                           "bank":  "Kotak",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "MEERA IYER 3000.0 CREDIT 2026-10-19"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-hdfc-emi-autodebit",
+                                                                           "bank":  "HDFC",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  false,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  false,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+                                                                                           "merchant-hallucinated"
+                                                                                       ],
+                                                                           "detail":  "merchant=\u0027HDFC Bank Loan Account\u0027 want one of [HDFC Bank, HDFC, , Loan EMI, EMI]"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-sbi-card-bigbasket",
+                                                                           "bank":  "SBI",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Bigbasket 1340.0 DEBIT 2026-10-21"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-pnb-utility-gas",
+                                                                           "bank":  "Punjab National Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Indraprastha Gas 1042.0 DEBIT 2026-10-22"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-bob-card-pvr",
+                                                                           "bank":  "Bank of Baroda",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "PVR Cinemas 1180.0 DEBIT 2026-10-23"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-idfc-refund-credit",
+                                                                           "bank":  "IDFC FIRST",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "AJIO 2199.0 CREDIT 2026-10-24"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-canara-upi-zomato",
+                                                                           "bank":  "Canara Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Zomato 486.0 DEBIT 2026-10-25"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-yes-insurance-premium",
+                                                                           "bank":  "Yes Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "HDFC Life 18420.0 DEBIT 2026-10-26"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-indusind-fuel",
+                                                                           "bank":  "IndusInd",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "HP PETROL PUMP 3000.0 DEBIT 2026-10-27"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-union-upi-individual",
+                                                                           "bank":  "Union Bank of India",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Arjun Menon 4500.0 DEBIT 2026-10-28"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-federal-large-amount",
+                                                                           "bank":  "Federal Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "SUNRISE BUILDERS PVT LTD 125000.0 DEBIT 2026-10-29"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-rbl-small-amount",
+                                                                           "bank":  "RBL",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "IRCTC 9.5 DEBIT 2026-10-30"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-boi-dividend-credit",
+                                                                           "bank":  "Bank of India",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  false,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  false,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+                                                                                           "merchant"
+                                                                                       ],
+                                                                           "detail":  "merchant=\u0027INFOSYS LTD DIVIDEND\u0027 want one of [Infosys, Infosys Ltd]"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-au-upi-swiggy",
+                                                                           "bank":  "AU Small Finance",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "Swiggy 735.0 DEBIT 2026-11-01"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-indianbank-ecom-flipkart",
+                                                                           "bank":  "Indian Bank",
+                                                                           "kind":  "transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  {
+                                                                                          "amount":  true,
+                                                                                          "transactionDate":  true,
+                                                                                          "merchant":  true,
+                                                                                          "transactionType":  true,
+                                                                                          "accountLast4":  true
+                                                                                      },
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "FLIPKART INTERNET 6490.0 DEBIT 2026-11-02"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-otp-bob",
+                                                                           "bank":  "Bank of Baroda",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "correctly rejected"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-otp-pnb",
+                                                                           "bank":  "Punjab National Bank",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "correctly rejected"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-promo-idfc",
+                                                                           "bank":  "IDFC FIRST",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "correctly rejected"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-promo-emi-offer",
+                                                                           "bank":  "IndusInd",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "correctly rejected"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-balance-union",
+                                                                           "bank":  "Union Bank of India",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "correctly rejected"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-balance-yes",
+                                                                           "bank":  "Yes Bank",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "correctly rejected"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-delivery-bluedart",
+                                                                           "bank":  "n/a",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "correctly rejected"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-delivery-zomato",
+                                                                           "bank":  "n/a",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "correctly rejected"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-mandate-federal",
+                                                                           "bank":  "Federal Bank",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  false,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+                                                                                           "false-transaction"
+                                                                                       ],
+                                                                           "detail":  "stored as merchant=\u0027HDFC LIFE\u0027 amount=18420.0"
+                                                                       },
+                                                                       {
+                                                                           "id":  "t-nt-cheque-return",
+                                                                           "bank":  "Canara Bank",
+                                                                           "kind":  "non-transaction",
+                                                                           "pass":  true,
+                                                                           "fields":  null,
+                                                                           "classes":  [
+
+                                                                                       ],
+                                                                           "detail":  "correctly rejected"
+                                                                       }
+                                                                   ]
+                                                               ],
+                                                    "aggregate":  {
+                                                                      "fieldAccuracy":  {
+                                                                                            "mean":  98.1,
+                                                                                            "min":  98.1,
+                                                                                            "max":  98.1,
+                                                                                            "runs":  1
+                                                                                        },
+                                                                      "exactRecords":  {
+                                                                                           "mean":  90.6,
+                                                                                           "min":  90.6,
+                                                                                           "max":  90.6,
+                                                                                           "runs":  1
+                                                                                       },
+                                                                      "nonTransactionReject":  {
+                                                                                                   "mean":  90,
+                                                                                                   "min":  90,
+                                                                                                   "max":  90,
+                                                                                                   "runs":  1
+                                                                                               }
+                                                                  },
+                                                    "unstableCases":  null,
+                                                    "taxonomy":  {
+                                                                     "merchant":  {
+                                                                                      "occurrences":  1,
+                                                                                      "perRunAverage":  1,
+                                                                                      "examples":  [
+                                                                                                       "t-boi-dividend-credit: merchant=\u0027INFOSYS LTD DIVIDEND\u0027 want one of [Infosys, Infosys Ltd]"
+                                                                                                   ]
+                                                                                  },
+                                                                     "merchant-hallucinated":  {
+                                                                                                   "occurrences":  1,
+                                                                                                   "perRunAverage":  1,
+                                                                                                   "examples":  [
+                                                                                                                    "t-hdfc-emi-autodebit: merchant=\u0027HDFC Bank Loan Account\u0027 want one of [HDFC Bank, HDFC, , Loan EMI, EMI]"
+                                                                                                                ]
+                                                                                               },
+                                                                     "date":  {
+                                                                                  "occurrences":  1,
+                                                                                  "perRunAverage":  1,
+                                                                                  "examples":  [
+                                                                                                   "t-indianbank-urbancompany: date=2025-10-15 want \u00272026-10-15\u0027"
+                                                                                               ]
+                                                                              },
+                                                                     "false-transaction":  {
+                                                                                               "occurrences":  1,
+                                                                                               "perRunAverage":  1,
+                                                                                               "examples":  [
+                                                                                                                "t-nt-mandate-federal: stored as merchant=\u0027HDFC LIFE\u0027 amount=18420.0"
+                                                                                                            ]
+                                                                                           }
+                                                                 }
+                                                }
+                                   }
+                },
+    "runFinished":  "2026-10-23T13:07:23.4769627+05:30",
+    "durationMinutes":  3.8
+}

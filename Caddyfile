@@ -1,0 +1,36 @@
+# The single inlet. Caddy is the only container with a published port; everything behind it is
+# reachable only by service name on the compose network.
+#
+# CADDY_DOMAIN decides whether this is a real site or a local one. Set it to a hostname
+# (spendsense.example.com) and Caddy obtains and renews a Let's Encrypt certificate on its own.
+# Left at the default ":80" it serves plain HTTP on port 80 with no certificate, which is what
+# local verification needs and what a bare IP address would get anyway - Let's Encrypt does not
+# issue certificates for IPs.
+{$CADDY_DOMAIN::80} {
+	# Two services share one hostname. The split is by path and nothing else, so there is one
+	# origin for the browser, one certificate to renew, and one port open on the host.
+
+	# The pipeline's inlet: the iOS Shortcut posts bank SMS here. Matched first and matched
+	# narrowly - this is the only path that reaches a service other than the BFF.
+	@ingest path /api/sms-ingest*
+	handle @ingest {
+		reverse_proxy ingestion-service:8080
+	}
+
+	# Everything else is the BFF. Caddy deliberately does NOT authenticate anything: the API
+	# key on /api/sms-ingest is checked by ingestion-service itself, so the gate stays with the
+	# service that owns it rather than being duplicated in proxy config that can drift out of
+	# step with the code.
+	handle {
+		reverse_proxy dashboard-service:8087
+	}
+
+	# X-Correlation-Id passes through untouched in both directions - Caddy forwards request and
+	# response headers by default - so a trace started in the browser still joins up with the
+	# service logs behind the proxy.
+
+	log {
+		output stdout
+		format json
+	}
+}

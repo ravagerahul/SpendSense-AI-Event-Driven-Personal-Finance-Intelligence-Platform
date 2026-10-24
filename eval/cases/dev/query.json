@@ -1,0 +1,144 @@
+{
+    "description":  "Labeled questions for the query eval. Three things are scored per case: did the router pick the expected path, did the aggregation produce the right number, and did merchant resolution surface the merchants the question was actually about.",
+    "groundTruthNote":  "groundTruthSql is hand-written and run directly against the same database at eval time, so the expected number is derived from the data actually present rather than hardcoded. Each one must return exactly one scalar. The fuzzy cases deliberately match on merchant and raw_text rather than category: a flight, a coffee, a cab ride and a box of medicines are all narrower than any category in the closed list, which is the whole reason resolve-then-aggregate exists.",
+    "cases":  [
+                  {
+                      "id":  "flight-booking",
+                      "question":  "how much did I pay for my flight booking",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND (merchant ILIKE \u0027%makemytrip%\u0027 OR merchant ILIKE \u0027%make my trip%\u0027)",
+                      "expectedMerchants":  [
+                                                "makemytrip"
+                                            ],
+                      "note":  "The canonical case. \u0027Flight\u0027 is not a category - Travel also covers trains and buses - so only merchant resolution can find the rows."
+                  },
+                  {
+                      "id":  "coffee",
+                      "question":  "how much have I spent on coffee",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND (merchant ILIKE \u0027%blue tokai%\u0027 OR merchant ILIKE \u0027%bluetokai%\u0027 OR merchant ILIKE \u0027%starbucks%\u0027)",
+                      "expectedMerchants":  [
+                                                "blue tokai",
+                                                "starbucks"
+                                            ],
+                      "note":  "Coffee is not a category either; these rows are Food \u0026 Dining alongside every restaurant and delivery order."
+                  },
+                  {
+                      "id":  "cab-rides",
+                      "question":  "how much did I spend on cab rides",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND (merchant ILIKE \u0027%uber%\u0027 OR merchant ILIKE \u0027%ola%\u0027)",
+                      "expectedMerchants":  [
+                                                "uber",
+                                                "ola"
+                                            ],
+                      "note":  "Transport also holds fuel and train tickets, so the category alone overcounts."
+                  },
+                  {
+                      "id":  "medicines",
+                      "question":  "what have I spent on medicines",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND (merchant ILIKE \u0027%apollo%\u0027 OR merchant ILIKE \u0027%pharmeasy%\u0027 OR merchant ILIKE \u0027%pharm easy%\u0027)",
+                      "expectedMerchants":  [
+                                                "apollo",
+                                                "pharmeasy"
+                                            ],
+                      "note":  "Health would also include a doctor\u0027s visit or a lab test."
+                  },
+                  {
+                      "id":  "streaming",
+                      "question":  "how much do my streaming subscriptions cost in total",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND (merchant ILIKE \u0027%netflix%\u0027 OR merchant ILIKE \u0027%spotify%\u0027 OR merchant ILIKE \u0027%hotstar%\u0027)",
+                      "expectedMerchants":  [
+                                                "netflix",
+                                                "spotify",
+                                                "hotstar"
+                                            ],
+                      "note":  "Subscriptions is close but not the same set - it would also catch a gym membership or a news paywall."
+                  },
+                  {
+                      "id":  "fuel",
+                      "question":  "how much have I spent on petrol",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND (merchant ILIKE \u0027%indian oil%\u0027 OR merchant ILIKE \u0027%indianoil%\u0027 OR merchant ILIKE \u0027%bharat petroleum%\u0027 OR merchant ILIKE \u0027%hp%\u0027)",
+                      "expectedMerchants":  [
+                                                "indian oil"
+                                            ],
+                      "note":  "Fuel sits inside Transport with every cab ride."
+                  },
+                  {
+                      "id":  "groceries-category",
+                      "question":  "how much did I spend on groceries",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027 AND category = \u0027Groceries\u0027",
+                      "expectedMerchants":  [
+
+                                            ],
+                      "note":  "The easy case: the question names a category exactly, so no resolution is needed."
+                  },
+                  {
+                      "id":  "total-spend",
+                      "question":  "what is my total spend across all transactions",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027",
+                      "expectedMerchants":  [
+
+                                            ],
+                      "note":  "No filtering at all. Checks that the SQL path does not invent a WHERE clause."
+                  },
+                  {
+                      "id":  "transaction-count",
+                      "question":  "how many transactions do I have in total",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COUNT(*) FROM transactions",
+                      "expectedMerchants":  [
+
+                                            ],
+                      "note":  "A count rather than a sum, to check the aggregate itself is chosen correctly."
+                  },
+                  {
+                      "id":  "biggest-debit",
+                      "question":  "what is the largest amount I have ever paid out",
+                      "expectedMethod":  "sql",
+                      "groundTruthSql":  "SELECT COALESCE(MAX(amount), 0) FROM transactions WHERE transaction_type = \u0027DEBIT\u0027",
+                      "expectedMerchants":  [
+
+                                            ],
+                      "note":  "MAX, not SUM."
+                  },
+                  {
+                      "id":  "semantic-pharmacy",
+                      "question":  "show me the payment I made at the pharmacy",
+                      "expectedMethod":  "rag",
+                      "groundTruthSql":  null,
+                      "expectedMerchants":  [
+                                                "apollo",
+                                                "pharmeasy"
+                                            ],
+                      "note":  "Wants particular rows back, not a number. Scored on whether retrieval surfaced the pharmacy transactions."
+                  },
+                  {
+                      "id":  "semantic-big-transfer",
+                      "question":  "remind me about that large transfer I sent to someone",
+                      "expectedMethod":  "rag",
+                      "groundTruthSql":  null,
+                      "expectedMerchants":  [
+                                                "suresh"
+                                            ],
+                      "note":  "Recall by meaning, with no merchant named."
+                  },
+                  {
+                      "id":  "semantic-electronics",
+                      "question":  "which transaction was for electronics",
+                      "expectedMethod":  "rag",
+                      "groundTruthSql":  null,
+                      "expectedMerchants":  [
+                                                "croma"
+                                            ],
+                      "note":  "\u0027Electronics\u0027 names no category and no merchant; only the embedding connects it to Croma."
+                  }
+              ],
+    "set":  "dev",
+    "provenance":  "Questions written while the router and the resolve-then-aggregate design were being built. CONTAMINATED: the flight question in this set is the reason the SQL prompt carries its \u0027categories are broad\u0027 paragraph and its worked ILIKE example."
+}
